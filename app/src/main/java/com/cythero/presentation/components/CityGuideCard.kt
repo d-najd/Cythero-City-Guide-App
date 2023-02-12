@@ -1,6 +1,5 @@
 package com.cythero.presentation.components
 
-import com.cythero.cityguideapp.R
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
@@ -15,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 /**
- * @sample BugtrackerCardPreview()
+ * @sample CityGuideCardPreview()
  */
 @Composable
 fun CityGuideCard(
@@ -51,7 +50,7 @@ fun CityGuideCard(
     widthDp = 300,
 )
 @Composable
-private fun BugtrackerCardPreview(){
+private fun CityGuideCardPreview(){
     var dismissMenu by remember { mutableStateOf(false) }
 
     CityGuideCard(title = "title") {

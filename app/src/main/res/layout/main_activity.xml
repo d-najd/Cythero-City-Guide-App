@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:id="@+id/root_coordinator"
     android:layout_width="match_parent"
-    android:theme="@style/Theme.Bugtracker"
+    android:theme="@style/Theme.CityGuide"
     android:layout_height="match_parent">
 
     <com.bluelinelabs.conductor.ChangeHandlerFrameLayout

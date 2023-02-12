@@ -1,7 +1,7 @@
 package com.cythero.data.utils
 
-import io.dnajd.bugtracker.R
-import io.dnajd.bugtracker.util.view.ContextHolder
+import com.cythero.cityguideapp.R
+import com.cythero.cityguideapp.util.view.ContextHolder
 import retrofit2.Call
 import uy.kohesive.injekt.Injekt
 import uy.kohesive.injekt.api.get
