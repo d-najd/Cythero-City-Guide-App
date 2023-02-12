@@ -1,10 +1,18 @@
 <resources>
-    <string name="app_name">CityGuideApp</string>
+    <string name="app_name">CityGuide</string>
 
     <string name="error_password_do_not_match">Passwords don\'t match</string>
     <string name="error_empty_field">Empty Field/s</string>
     <string name="error_network">Request could not be executed due to a connectivity problem</string>
-    <string name="error_auth">Authentication failed</string>
     <string name="error_duplicate_entry">Duplicate Entry</string>
     <string name="error_unhandled">Unhandled exception</string>
+    <string name="error_bad_request">Bad Request</string>
+    <string name="error_unauthorized">Unauthorized</string>
+    <string name="error_forbidden">Forbidden</string>
+    <string name="error_not_found">Not Found</string>
+    <string name="error_request_timeout">Request Timeout</string>
+    <string name="error_teapot">I am a teapot</string>
+    <string name="error_internal_server_error">Internal Server Error</string>
+    <string name="error_not_implemented">Not Implemented</string>
+    <string name="bad_gateway">Bad Gateway</string>
 </resources>

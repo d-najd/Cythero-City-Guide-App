@@ -1,32 +1,25 @@
 package com.cythero.data.utils
 
-import com.cythero.cityguideapp.R
-import com.cythero.cityguideapp.util.view.ContextHolder
+import com.cythero.presentation.util.event.BaseEvent
+import com.cythero.presentation.util.event.EventFactory
+import com.cythero.presentation.util.event.EventSendableHolder
 import retrofit2.Call
-import uy.kohesive.injekt.Injekt
-import uy.kohesive.injekt.api.get
 import java.io.IOException
 
 
 inline fun <reified T> Call<T>.processRequest(): T? {
-    if(T::class.java == Void::class.java) throw IllegalStateException("Use Call<T>.processVoidRequest for void requests")
-    try{
+    if(T::class.java == Void::class.java) throw IllegalStateException("Use Call<T>.processVoidRequest() for void requests")
+    try {
         val response = execute()
-        if(response.isSuccessful && response.code() == 200){
+        if(response.isSuccessful){
             return response.body()
-        } else if (response.code() == 401){
-            Injekt.get<ContextHolder>().composeToast(R.string.error_auth)
-        } else if (response.code() == 409) {
-            Injekt.get<ContextHolder>().composeToast(R.string.error_duplicate_entry)
         } else {
-            val contextHolder = Injekt.get<ContextHolder>()
-            contextHolder.composeToast("${contextHolder.getString(R.string.error_unhandled)} code ${response.code()}")
+            EventSendableHolder.get().sendEvent(EventFactory.getErrorMessageByCode(response.code()))
         }
-
-    } catch (e: Exception){
+    } catch (e: Exception) {
         e.printStackTrace()
         when(e){
-            is IOException -> Injekt.get<ContextHolder>().composeToast(R.string.error_network)
+            is IOException -> EventSendableHolder.get().sendEvent(BaseEvent.NetworkError)
             else -> throw e
         }
     }
@@ -41,19 +34,13 @@ fun <T> Call<T>.processVoidRequest(): Boolean {
         val response = execute()
         if(response.isSuccessful){
             return true
-        } else if (response.code() == 401){
-            Injekt.get<ContextHolder>().composeToast(R.string.error_auth)
-        } else if (response.code() == 409) {
-            Injekt.get<ContextHolder>().composeToast(R.string.error_duplicate_entry)
         } else {
-            val contextHolder = Injekt.get<ContextHolder>()
-            contextHolder.composeToast("${contextHolder.getString(R.string.error_unhandled)} code ${response.code()}")
+            EventSendableHolder.get().sendEvent(EventFactory.getErrorMessageByCode(response.code()))
         }
-
     } catch (e: Exception){
         e.printStackTrace()
         when(e){
-            is IOException -> Injekt.get<ContextHolder>().composeToast(R.string.error_network)
+            is IOException -> EventSendableHolder.get().sendEvent(BaseEvent.NetworkError)
             else -> throw e
         }
     }

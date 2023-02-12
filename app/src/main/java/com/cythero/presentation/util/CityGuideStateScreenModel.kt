@@ -17,11 +17,6 @@ abstract class CityGuideStateScreenModel<S> (initialState: S):
 	private val _events: Channel<BaseEvent> = Channel(Int.MAX_VALUE)
 	val events: Flow<BaseEvent> = _events.receiveAsFlow()
 
-	init {
-		//Injekt.get<ContextHolder>().composeContext = context
-		//Injekt.get<ContextHolder>().composeCoroutineScope = coroutineScope
-	}
-
 	override fun sendEvent(baseEvent: BaseEvent) {
 		coroutineScope.launch {
 			_events.send(baseEvent)
