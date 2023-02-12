@@ -1,5 +1,6 @@
 package com.cythero.presentation.library
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
@@ -16,9 +17,10 @@ fun LibraryScreenContent(
     onBackClicked: () -> Unit,
 ) {
     Scaffold { contentPadding ->
+        BackHandler { onBackClicked() }
+
         LibraryContent(
             state = state,
-            onBackClicked = onBackClicked,
             contentPadding = contentPadding,
         )
     }

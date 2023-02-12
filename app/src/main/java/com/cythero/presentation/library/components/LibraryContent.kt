@@ -20,7 +20,6 @@ import com.cythero.cityguideapp.ui.library.LibraryScreenState
 @Composable
 fun LibraryContent(
 	state: LibraryScreenState.Success,
-	onBackClicked: () -> Unit,
 	contentPadding: PaddingValues,
 ) {
 
