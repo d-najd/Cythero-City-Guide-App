@@ -1,19 +1,32 @@
 package com.cythero.presentation.util
 
-import android.content.Context
 import cafe.adriel.voyager.core.model.StateScreenModel
 import cafe.adriel.voyager.core.model.coroutineScope
-import com.cythero.cityguideapp.util.view.ContextHolder
-import uy.kohesive.injekt.Injekt
-import uy.kohesive.injekt.api.get
+import com.cythero.presentation.util.event.BaseEvent
+import com.cythero.presentation.util.event.EventSendable
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.launch
 
 /**
  * TODO according to google passing context to screen-model is a bad idea, should find alternative
  */
-open class CityGuideStateScreenModel<S> (context: Context, initialState: S):
-	StateScreenModel<S>(initialState = initialState) {
+abstract class CityGuideStateScreenModel<S> (initialState: S):
+	StateScreenModel<S>(initialState = initialState), EventSendable {
+	private val _events: Channel<BaseEvent> = Channel(Int.MAX_VALUE)
+	val events: Flow<BaseEvent> = _events.receiveAsFlow()
+
 	init {
-		Injekt.get<ContextHolder>().composeContext = context
-		Injekt.get<ContextHolder>().composeCoroutineScope = coroutineScope
+		//Injekt.get<ContextHolder>().composeContext = context
+		//Injekt.get<ContextHolder>().composeCoroutineScope = coroutineScope
+	}
+
+	override fun sendEvent(baseEvent: BaseEvent) {
+		coroutineScope.launch {
+			_events.send(baseEvent)
+		}
 	}
 }
+
+
