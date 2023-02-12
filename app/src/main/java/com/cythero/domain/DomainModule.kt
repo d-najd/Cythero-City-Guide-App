@@ -2,7 +2,7 @@ package com.cythero.domain
 
 import com.google.gson.GsonBuilder
 import com.cythero.data.utils.Urls
-import com.cythero.presentation.util.event.EventSendableHolder
+import com.cythero.cityguideapp.ui.base.event.EventSendableHolder
 import com.cythero.util.DateFormat
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

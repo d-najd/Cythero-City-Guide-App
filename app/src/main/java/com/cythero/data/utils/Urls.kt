@@ -14,29 +14,8 @@ sealed class Urls: UrlsGetFields {
         override fun getAppendedUrl(): String = appendedUrlLocal
     }
     @Suppress("MemberVisibilityCanBePrivate")
-    object PROJECT: Urls() {
-        const val baseUrlLocal = "project-service/api"
-        const val appendedUrlLocal = "${API.baseUrlLocal}/$baseUrlLocal"
-        override fun getBaseUrl(): String = baseUrlLocal
-        override fun getAppendedUrl(): String = appendedUrlLocal
-    }
-    @Suppress("MemberVisibilityCanBePrivate")
-    object PROJECT_TABLE: Urls() {
-        const val baseUrlLocal = "project-table-service/api"
-        const val appendedUrlLocal = "${API.baseUrlLocal}/$baseUrlLocal"
-        override fun getBaseUrl(): String = baseUrlLocal
-        override fun getAppendedUrl(): String = appendedUrlLocal
-    }
-    @Suppress("MemberVisibilityCanBePrivate")
-    object TABLE_TASK: Urls() {
-        const val baseUrlLocal = "project-table-issue-service/api"
-        const val appendedUrlLocal = "${API.baseUrlLocal}/$baseUrlLocal"
-        override fun getBaseUrl(): String = baseUrlLocal
-        override fun getAppendedUrl(): String = appendedUrlLocal
-    }
-    @Suppress("MemberVisibilityCanBePrivate")
-    object USER_AUTHORITY: Urls() {
-        const val baseUrlLocal = "user-authority-service/api"
+    object CITY: Urls() {
+        const val baseUrlLocal = "cities-service/api"
         const val appendedUrlLocal = "${API.baseUrlLocal}/$baseUrlLocal"
         override fun getBaseUrl(): String = baseUrlLocal
         override fun getAppendedUrl(): String = appendedUrlLocal

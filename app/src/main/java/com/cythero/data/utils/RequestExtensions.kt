@@ -1,8 +1,8 @@
 package com.cythero.data.utils
 
-import com.cythero.presentation.util.event.BaseEvent
-import com.cythero.presentation.util.event.EventFactory
-import com.cythero.presentation.util.event.EventSendableHolder
+import com.cythero.cityguideapp.ui.base.event.BaseEvent
+import com.cythero.cityguideapp.ui.base.event.EventFactory
+import com.cythero.cityguideapp.ui.base.event.EventSendableHolder
 import retrofit2.Call
 import java.io.IOException
 

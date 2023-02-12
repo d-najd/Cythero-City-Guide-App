@@ -1,11 +1,11 @@
-package com.cythero.presentation.util.event
+package com.cythero.cityguideapp.ui.base.event
 
 object EventSendableHolder {
 	private lateinit var sendable: EventSendable
 
 	@Synchronized
-	fun register(sendable: EventSendable) {
-		this.sendable = sendable
+	fun set(sendable: EventSendable) {
+		EventSendableHolder.sendable = sendable
 	}
 
 	/**

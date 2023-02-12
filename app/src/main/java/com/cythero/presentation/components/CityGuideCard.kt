@@ -26,7 +26,7 @@ fun CityGuideCard(
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .padding(if(applyPadding) ANALYTICS_CARD_PADDING else PaddingValues(0.dp)),
+            .padding(if(applyPadding) CARD_PADDING else PaddingValues(0.dp)),
     ) {
 
         Column(modifier = Modifier
@@ -37,7 +37,7 @@ fun CityGuideCard(
                     text = title,
                     fontSize = 20.sp,
                     modifier = Modifier
-                        .padding(ANALYTICS_CARD_CONTENT_PADDING)
+                        .padding(CARD_CONTENT_PADDING)
                         .padding(vertical = 16.dp),
                 )
             }
@@ -71,5 +71,5 @@ private fun CityGuideCardPreview(){
     }
 }
 
-val ANALYTICS_CARD_CONTENT_PADDING = PaddingValues(vertical = 6.dp)
-private val ANALYTICS_CARD_PADDING = PaddingValues(horizontal = 24.dp, vertical = 12.dp)
+val CARD_CONTENT_PADDING = PaddingValues(vertical = 6.dp)
+private val CARD_PADDING = PaddingValues(horizontal = 24.dp, vertical = 12.dp)

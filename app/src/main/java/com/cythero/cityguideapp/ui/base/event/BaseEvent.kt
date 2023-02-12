@@ -1,4 +1,4 @@
-package com.cythero.presentation.util.event
+package com.cythero.cityguideapp.ui.base.event
 
 import androidx.annotation.StringRes
 import com.cythero.cityguideapp.R

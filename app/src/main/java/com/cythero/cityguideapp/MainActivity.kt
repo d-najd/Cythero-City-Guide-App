@@ -3,9 +3,12 @@ package com.cythero.cityguideapp
 import android.os.Bundle
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.material3.ExperimentalMaterial3Api
 import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Router
 import com.cythero.cityguideapp.databinding.MainActivityBinding
+import com.cythero.cityguideapp.ui.base.controller.setRoot
+import com.cythero.cityguideapp.ui.library.LibraryController
 import com.cythero.domain.DomainModule
 import uy.kohesive.injekt.Injekt
 
@@ -25,21 +28,13 @@ class MainActivity : AppCompatActivity() {
 		router = Conductor.attachRouter(this, container, savedInstanceState)
 			.setPopRootControllerMode(Router.PopRootControllerMode.NEVER)
 
-		/* TODO set controller
 		if(router.backstack.firstOrNull() == null) {
-			val projectFake = Project(
-				id = 1,
-				owner = "user1",
-				title = "Fake Title",
-			)
-
-			router.setRoot(ProjectController())
+			router.setRoot(LibraryController())
 			// router.setRoot(ProjectTableController(projectFake))
 			// router.setRoot(TableTaskController(1L))
 			// router.setRoot(ProjectSettingsController(projectFake))
 			// router.setRoot(ProjectDetailsController(projectFake))
 			// router.setRoot(ProjectUserManagementController(1L))
 		}
-		 */
 	}
 }
