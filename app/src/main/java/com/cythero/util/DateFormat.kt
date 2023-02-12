@@ -1,6 +1,7 @@
 package com.cythero.util
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.res.pluralStringResource
 import com.cythero.cityguideapp.R
 import java.text.SimpleDateFormat
@@ -30,6 +31,7 @@ class DateFormat{
          * @return string representation of given [timeSeconds] consisting of either: hours, minutes or
          * seconds containing at most 1 decimal space
          */
+        @OptIn(ExperimentalComposeUiApi::class)
         @Composable
         fun generateStringFromTimeWithDecimal(timeSeconds: Long): String{
             return when (timeSeconds){
@@ -53,6 +55,7 @@ class DateFormat{
             }
         }
 
+        @OptIn(ExperimentalComposeUiApi::class)
         @Composable
         fun generateStringFromTime(timeSeconds: Long): String{
             return when (timeSeconds){

@@ -51,8 +51,6 @@ fun CityGuideCard(
 )
 @Composable
 private fun CityGuideCardPreview(){
-    var dismissMenu by remember { mutableStateOf(false) }
-
     CityGuideCard(title = "title") {
         CityGuideIconPairField(
             modifier = Modifier
