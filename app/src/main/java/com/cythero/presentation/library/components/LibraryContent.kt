@@ -1,5 +1,6 @@
 package com.cythero.presentation.library.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -13,6 +14,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.cythero.cityguideapp.theme.DestinationThemeFactory
 import com.cythero.cityguideapp.ui.library.LibraryScreenState
 
 @Composable
@@ -21,22 +23,36 @@ fun LibraryContent(
 	onBackClicked: () -> Unit,
 	contentPadding: PaddingValues,
 ) {
+
+	val itemseee = state.cities.toMutableList()
+	itemseee.addAll(itemseee)
+	itemseee.addAll(itemseee)
+	itemseee.addAll(itemseee)
+	itemseee.addAll(itemseee)
 	LazyColumn(
 		modifier = Modifier
 			.padding(contentPadding)
 			.fillMaxSize()
 	) {
-		items(state.cities) { city ->
+		items(itemseee) { city ->
+			val themeColor = DestinationThemeFactory.getRandomColor()
 			Column(
 				modifier = Modifier
 					.fillMaxWidth()
+					.background(themeColor)
 					.height(225.dp)
 					.padding(8.dp),
 			) {
+				val paddingCentered = 36.dp
+
 				Row(
 					verticalAlignment = Alignment.CenterVertically,
+					modifier = Modifier.height(paddingCentered)
 				) {
-					IconButton(onClick = { /*TODO*/ }) {
+					IconButton(
+						modifier = Modifier.size(paddingCentered),
+						onClick = { /*TODO*/ }
+					) {
 						Icon(
 							imageVector = Icons.Default.Favorite,
 							contentDescription = ""
@@ -49,7 +65,9 @@ fun LibraryContent(
 				}
 
 				Column(
-					modifier = Modifier.fillMaxSize(),
+					modifier = Modifier
+						.fillMaxSize()
+						.padding(bottom = paddingCentered),
 					horizontalAlignment = Alignment.CenterHorizontally,
 					verticalArrangement = Arrangement.Center,
 				) {
@@ -57,10 +75,14 @@ fun LibraryContent(
 						text = city.name.uppercase(),
 						fontFamily = FontFamily.SansSerif,
 						fontWeight = FontWeight.SemiBold,
-						fontSize = 20.sp,
+						letterSpacing = 4.sp,
+						fontSize = 25.sp,
 					)
 
 					Button(
+						colors = ButtonDefaults.buttonColors(
+							disabledBackgroundColor = contentColorFor(themeColor).copy(alpha = .15f),
+						),
 						enabled = false,
 						onClick = { /*TODO*/ }
 					) {
