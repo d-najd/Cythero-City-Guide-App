@@ -22,12 +22,7 @@ fun LibraryContent(
 	state: LibraryScreenState.Success,
 	contentPadding: PaddingValues,
 ) {
-
 	val itemseee = state.cities.toMutableList()
-	itemseee.addAll(itemseee)
-	itemseee.addAll(itemseee)
-	itemseee.addAll(itemseee)
-	itemseee.addAll(itemseee)
 	LazyColumn(
 		modifier = Modifier
 			.padding(contentPadding)
