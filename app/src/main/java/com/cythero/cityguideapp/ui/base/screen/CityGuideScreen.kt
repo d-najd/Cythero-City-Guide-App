@@ -22,6 +22,7 @@ abstract class CityGuideScreen: Screen {
 	 * if extended default behaviour is needed [DefaultEventHandler(screenModel)] can be called preferably as the first line.
 	 * @param screenModel screen model
 	 * @see DefaultEventHandler(screenModel)
+	 * TODO throw error if the user forgets to add event handler
 	 */
 	@Composable
 	protected open fun EventHandler(screenModel: CityGuideStateScreenModel<Any>) {

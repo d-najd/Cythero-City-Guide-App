@@ -3,6 +3,10 @@ package com.cythero.domain
 import com.google.gson.GsonBuilder
 import com.cythero.data.utils.Urls
 import com.cythero.cityguideapp.ui.base.event.EventSendableHolder
+import com.cythero.data.city.FakeCityRepository
+import com.cythero.data.city.RemoteCityRepository
+import com.cythero.domain.city.interactor.GetCity
+import com.cythero.domain.city.service.CityRepository
 import com.cythero.util.DateFormat
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -45,45 +49,13 @@ class DomainModule : InjektModule {
 
         when (USE_FAKES) {
             true -> {
-                /*
-                addSingletonFactory<ProjectRepository> { FakeProjectRepository }
-                addSingletonFactory<ProjectTableRepository> { FakeProjectTableRepository }
-                addSingletonFactory<TableTaskRepository> { FakeTableTaskRepository }
-                addSingletonFactory<UserAuthorityRepository> { FakeUserAuthorityRepository }
-                 */
+                addSingletonFactory<CityRepository> { FakeCityRepository }
             }
             false -> {
-                /*
-                addSingletonFactory<ProjectRepository> { RemoteProjectRepository }
-                addSingletonFactory<ProjectTableRepository> { RemoteProjectTableRepository }
-                addSingletonFactory<TableTaskRepository> { RemoteTableTaskRepository }
-                addSingletonFactory<UserAuthorityRepository> { RemoteUserAuthorityRepository }
-                 */
+                addSingletonFactory<CityRepository> { RemoteCityRepository }
             }
         }
 
-        /*
-        addFactory { GetProject(get()) }
-        addFactory { CreateProject(get()) }
-        addFactory { RenameProject(get()) }
-        addFactory { DeleteProject(get()) }
-
-        addFactory { GetProjectTable(get()) }
-        addFactory { CreateProjectTable(get()) }
-        addFactory { RenameProjectTable(get()) }
-        addFactory { SwapProjectTables(get()) }
-        addFactory { DeleteProjectTable(get()) }
-
-        addFactory { GetTableTask(get()) }
-        addFactory { CreateTableTask(get()) }
-        addFactory { SwapTableTasks(get()) }
-        addFactory { MoveTableTask(get()) }
-        addFactory { SwapTableTaskTable(get()) }
-        addFactory { UpdateTableTaskDescription(get()) }
-
-        addFactory { GetUserAuthorities(get()) }
-        addFactory { CreateUserAuthority(get()) }
-        addFactory { DeleteUserAuthority(get()) }
-         */
+        addFactory { GetCity(get()) }
     }
 }

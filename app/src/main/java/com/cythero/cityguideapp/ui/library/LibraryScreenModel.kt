@@ -2,12 +2,26 @@ package com.cythero.cityguideapp.ui.library
 
 import androidx.compose.runtime.Immutable
 import cafe.adriel.voyager.core.model.coroutineScope
+import com.cythero.domain.city.interactor.GetCity
+import com.cythero.domain.city.model.City
 import com.cythero.presentation.util.CityGuideStateScreenModel
+import com.cythero.util.launchIO
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import uy.kohesive.injekt.Injekt
+import uy.kohesive.injekt.api.get
 
-class LibraryScreenModel : CityGuideStateScreenModel<LibraryScreenState>(LibraryScreenState.Loading) {
+class LibraryScreenModel(
+	private val getCity: GetCity = Injekt.get(),
+) : CityGuideStateScreenModel<LibraryScreenState>(LibraryScreenState.Loading) {
 	init {
-		coroutineScope.launch {
+		coroutineScope.launchIO {
+			mutableState.update {
+				val cities = getCity.awaitAll()
+				LibraryScreenState.Success(
+					cities = cities
+				)
+			}
 			/*
 			sendEvent(Event.CanNotGetParentTable)
 			sendEvent(Event.Test)
@@ -52,12 +66,7 @@ sealed class LibraryScreenState {
 
 	@Immutable
 	data class Success(
-		val test: String,
-		/*
-		val task: TableTask,
-		val parentTable: ProjectTable,
-		val sheet: TableTaskSheet? = null,
-		 */
+		val cities: List<City>,
 	): LibraryScreenState()
 
 }

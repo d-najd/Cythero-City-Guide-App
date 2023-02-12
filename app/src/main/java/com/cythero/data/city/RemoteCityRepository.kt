@@ -16,7 +16,6 @@ object RemoteCityRepository : CityRepository {
             .baseUrl("${Urls.CITY.getAppendedUrl()}/").build().create(ProjectTableRepositoryApi::class.java)
 
     override suspend fun getAll(): CityHolder? = factory.getAll().processRequest()
-
 }
 
 private interface ProjectTableRepositoryApi {

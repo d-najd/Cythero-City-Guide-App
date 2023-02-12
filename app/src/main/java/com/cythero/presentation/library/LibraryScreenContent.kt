@@ -8,6 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.cythero.cityguideapp.ui.library.LibraryScreenState
+import com.cythero.presentation.library.components.LibraryContent
 
 @Composable
 fun LibraryScreenContent(
@@ -15,11 +16,10 @@ fun LibraryScreenContent(
     onBackClicked: () -> Unit,
 ) {
     Scaffold { contentPadding ->
-        Column(
-            modifier = Modifier.padding(contentPadding).padding(vertical = 40.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Text(text = "Hello World")
-        }
+        LibraryContent(
+            state = state,
+            onBackClicked = onBackClicked,
+            contentPadding = contentPadding,
+        )
     }
 }

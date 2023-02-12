@@ -9,9 +9,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
-/**
- * TODO according to google passing context to screen-model is a bad idea, should find alternative
- */
 abstract class CityGuideStateScreenModel<S> (initialState: S): StateScreenModel<S>(initialState), EventSendable {
 	private val _events: Channel<BaseEvent> = Channel(Int.MAX_VALUE)
 	val events: Flow<BaseEvent> = _events.receiveAsFlow()
