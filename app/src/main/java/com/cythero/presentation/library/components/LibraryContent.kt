@@ -1,5 +1,6 @@
 package com.cythero.presentation.library.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -10,25 +11,27 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cythero.cityguideapp.theme.DestinationThemeFactory
 import com.cythero.cityguideapp.ui.library.LibraryScreenState
+import kotlinx.coroutines.DelicateCoroutinesApi
 
 @Composable
 fun LibraryContent(
 	state: LibraryScreenState.Success,
 	contentPadding: PaddingValues,
 ) {
-	val itemseee = state.cities.toMutableList()
 	LazyColumn(
 		modifier = Modifier
 			.padding(contentPadding)
 			.fillMaxSize()
 	) {
-		items(itemseee) { city ->
+		items(state.cities) { city ->
 			val themeColor = DestinationThemeFactory.getRandomColor()
 			Column(
 				modifier = Modifier
@@ -37,6 +40,14 @@ fun LibraryContent(
 					.height(225.dp)
 					.padding(8.dp),
 			) {
+				/*
+				Image(
+					modifier = Modifier.fillMaxSize(),
+					bitmap = image.asImageBitmap(),
+					contentDescription = "",
+				)
+				 */
+
 				val paddingCentered = 36.dp
 
 				Row(
