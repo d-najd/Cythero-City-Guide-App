@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 
+		Injekt.importModule(MainActivityModule(this))
 		Injekt.importModule(DomainModule())
 
 		binding = MainActivityBinding.inflate(layoutInflater)

@@ -2,35 +2,50 @@ package com.cythero.cityguideapp.ui.library
 
 import androidx.compose.runtime.Immutable
 import cafe.adriel.voyager.core.model.coroutineScope
+import com.bumptech.glide.request.RequestOptions
 import com.cythero.domain.city.interactor.GetCity
 import com.cythero.domain.city.model.City
+import com.cythero.domain.image_url.interactor.GetImageByUrl
 import com.cythero.presentation.util.CityGuideStateScreenModel
 import com.cythero.util.launchIO
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import uy.kohesive.injekt.Injekt
 import uy.kohesive.injekt.api.get
 
 class LibraryScreenModel(
 	private val getCity: GetCity = Injekt.get(),
+	private val getImageByUrl: GetImageByUrl = Injekt.get(),
 ) : CityGuideStateScreenModel<LibraryScreenState>(LibraryScreenState.Loading) {
 	init {
 		coroutineScope.launchIO {
+			val cities = getCity.awaitAll().toMutableList()
 			mutableState.update {
-				val cities = getCity.awaitAll()
 				LibraryScreenState.Success(
 					cities = cities
 				)
 			}
-			/*
-			sendEvent(Event.CanNotGetParentTable)
-			sendEvent(Event.Test)
-			// sendEvent(BaseEvent.Test)
-			sendEvent(BaseEvent.LocalizedMessage(R.string.app_name))
-			 */
+
+			for(city in cities) {
+				// TODO make the crop correct
+				val requestOptions = RequestOptions.fitCenterTransform().centerCrop()
+				val drawable = getImageByUrl.subscribeOne(city.images[0].path, requestOptions)
+				val cityImages = city.images.toMutableList()
+				cityImages[0] = cityImages[0].copy(
+					drawable = drawable
+				)
+
+				cities[cities.indexOf(city)] = city.copy(
+					images = cityImages
+				)
+
+				mutableState.update {
+					(mutableState.value as LibraryScreenState.Success).copy(
+						cities = cities,
+					)
+				}
+			}
 		}
 	}
-
 	/*
     fun renameTable(id: Long, newName: String) {
         coroutineScope.launchIO {
