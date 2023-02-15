@@ -1,5 +1,6 @@
 package com.cythero.presentation.library.components
 
+import android.widget.Space
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -11,6 +12,7 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontFamily
@@ -38,21 +40,23 @@ fun LibraryContent(
 			Column(
 				modifier = Modifier
 					.fillMaxWidth()
-					.height(200.dp)
-					.padding(vertical = 8.dp),
-				horizontalAlignment = Alignment.CenterHorizontally
+					.height(225.dp),
+			horizontalAlignment = Alignment.CenterHorizontally
 			) {
-				Box(
-					modifier = Modifier.width(355.5555.dp),
-				) {
+				// TODO make the spacer `blurry` from the items above and below (combine their
+				//  colors instead of using onSurface color
+				Spacer(modifier = Modifier
+					.height(.5.dp)
+					.fillMaxWidth()
+					.background(MaterialTheme.colors.onSurface)
+				)
+				Box {
 					val drawable = city.images[0].drawable
-
 					drawable?.let {
 						Image(
 							bitmap = drawable.toBitmap().asImageBitmap(),
 							contentDescription = null,
 							modifier = Modifier
-								.aspectRatio(355.5555f / (200f - 16f))
 								.fillMaxSize(),
 							contentScale = ContentScale.Crop,
 							alignment = Alignment.Center
@@ -108,7 +112,7 @@ private fun InsideContent(
 		Column(
 			modifier = Modifier
 				.fillMaxSize()
-				.padding(bottom = paddingCentered/2f),
+				.padding(bottom = paddingCentered / 2f),
 			horizontalAlignment = Alignment.CenterHorizontally,
 			verticalArrangement = Arrangement.Center,
 		) {
