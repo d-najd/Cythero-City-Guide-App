@@ -30,7 +30,8 @@ class LibraryScreen : CityGuideScreen() {
 
 		LibraryScreenContent(
 			state = successState,
-			onBackClicked = router::popCurrentController
+			onBackClicked = router::popCurrentController,
+			onSortMenuClicked = screenModel::showOrHideSortMenu
 		)
 	}
 }

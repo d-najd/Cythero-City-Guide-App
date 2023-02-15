@@ -10,6 +10,7 @@ import com.cythero.domain.image_url.interactor.GetImageByUrl
 import com.cythero.presentation.util.CityGuideStateScreenModel
 import com.cythero.util.launchIO
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import uy.kohesive.injekt.Injekt
 import uy.kohesive.injekt.api.get
 
@@ -17,6 +18,8 @@ class LibraryScreenModel(
 	private val getCity: GetCity = Injekt.get(),
 	private val getImageByUrl: GetImageByUrl = Injekt.get(),
 ) : CityGuideStateScreenModel<LibraryScreenState>(LibraryScreenState.Loading) {
+	private fun successState(): LibraryScreenState.Success = mutableState.value as LibraryScreenState.Success
+
 	init {
 		coroutineScope.launchIO {
 			val cities = getCity.awaitAll().toMutableList()
@@ -34,19 +37,34 @@ class LibraryScreenModel(
 				cityImages[0] = cityImages[0].copy(
 					drawable = drawable
 				)
-
 				cities[cities.indexOf(city)] = city.copy(
 					images = cityImages
 				)
-
 				mutableState.update {
-					(mutableState.value as LibraryScreenState.Success).copy(
+					successState().copy(
 						cities = cities,
 					)
 				}
 			}
 		}
 	}
+
+	/**
+	 * Shows or hides sort menu depending on the state it was previously in, if it was shown it will
+	 * now be hidden and vice versa
+	 */
+	fun showOrHideSortMenu() {
+		coroutineScope.launch {
+			mutableState.update {
+				val successState = successState()
+				successState.copy(
+					sortMenuEnabled = !successState.sortMenuEnabled
+				)
+			}
+		}
+	}
+
+
 	/*
     fun renameTable(id: Long, newName: String) {
         coroutineScope.launchIO {
@@ -83,6 +101,7 @@ sealed class LibraryScreenState {
 	@Immutable
 	data class Success(
 		val cities: List<City>,
+		val sortMenuEnabled: Boolean = false,
 	): LibraryScreenState()
 
 }

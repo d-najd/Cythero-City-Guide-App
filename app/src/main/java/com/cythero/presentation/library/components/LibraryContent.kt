@@ -6,6 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
@@ -68,7 +69,6 @@ fun LibraryContent(
 					) {
 						InsideContent(city = city)
 					}
-
 				}
 			}
 		}
@@ -127,9 +127,10 @@ private fun InsideContent(
 
 			Button(
 				colors = ButtonDefaults.buttonColors(
-					disabledBackgroundColor = themeColor.copy(.825f),
-					disabledContentColor = contentColorFor(backgroundColor = themeColor.copy(.825f))
+					disabledBackgroundColor = themeColor.copy(.85f),
+					disabledContentColor = contentColorFor(backgroundColor = themeColor.copy(.85f))
 				),
+				shape = RoundedCornerShape(24.dp),
 				enabled = false,
 				onClick = { /*TODO*/ }
 			) {
