@@ -50,6 +50,7 @@ fun LibraryScreenContent(
                                 "Motels",
                                 "Beaches",
                                 "Gas Stations",
+                                "Bars",
                             )
 
                             for(filter in filters) {
