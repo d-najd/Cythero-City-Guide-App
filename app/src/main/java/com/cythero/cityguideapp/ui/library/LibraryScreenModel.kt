@@ -2,7 +2,6 @@ package com.cythero.cityguideapp.ui.library
 
 import androidx.compose.runtime.Immutable
 import cafe.adriel.voyager.core.model.coroutineScope
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.request.RequestOptions
 import com.cythero.domain.city.interactor.GetCity
 import com.cythero.domain.city.model.City
@@ -49,11 +48,7 @@ class LibraryScreenModel(
 		}
 	}
 
-	/**
-	 * Shows or hides sort menu depending on the state it was previously in, if it was shown it will
-	 * now be hidden and vice versa
-	 */
-	fun showOrHideSortMenu() {
+	fun invertSortMenu() {
 		coroutineScope.launch {
 			mutableState.update {
 				val successState = successState()
@@ -63,27 +58,6 @@ class LibraryScreenModel(
 			}
 		}
 	}
-
-
-	/*
-    fun renameTable(id: Long, newName: String) {
-        coroutineScope.launchIO {
-            val tables = (mutableState.value as ProjectTableScreenState.Success).tables.toMutableList()
-            tables.find { table -> table.id == id }!!.let { transientTable ->
-                if(renameTable.await(id, newName)) {
-                    // doing it this way so that state changes get updated for sure
-                    mutableState.update {
-                        tables.remove(transientTable)
-                        tables.add(transientTable.copy(title = newName))
-                        (mutableState.value as ProjectTableScreenState.Success).copy(
-                            tables = tables
-                        )
-                    }
-                }
-            }
-        }
-    }
-	 */
 
 	/*
 	sealed class Event: BaseEvent() {
