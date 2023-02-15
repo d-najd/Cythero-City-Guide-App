@@ -44,10 +44,12 @@ fun LibraryScreenContent(
                             val cornerRounding = 28.dp
                             // TODO this can be moved to an enum
                             val filters = listOf(
-                                "Name",
-                                "Visitors",
-                                "Rating",
-                                "Likes",
+                                "Tourist Attractions",
+                                "Restaurants",
+                                "Hotels",
+                                "Motels",
+                                "Beaches",
+                                "Gas Stations",
                             )
 
                             for(filter in filters) {
