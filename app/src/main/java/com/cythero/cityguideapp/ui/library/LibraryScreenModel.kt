@@ -2,6 +2,7 @@ package com.cythero.cityguideapp.ui.library
 
 import androidx.compose.runtime.Immutable
 import cafe.adriel.voyager.core.model.coroutineScope
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.request.RequestOptions
 import com.cythero.domain.city.interactor.GetCity
 import com.cythero.domain.city.model.City
@@ -28,6 +29,7 @@ class LibraryScreenModel(
 			for(city in cities) {
 				// TODO make the crop correct
 				val requestOptions = RequestOptions.fitCenterTransform().centerCrop()
+				// val requestOptions = RequestOptions.fitCenterTransform().centerCrop()
 				val drawable = getImageByUrl.subscribeOne(city.images[0].path, requestOptions)
 				val cityImages = city.images.toMutableList()
 				cityImages[0] = cityImages[0].copy(
