@@ -3,7 +3,7 @@
 
     <string name="error_password_do_not_match">Passwords don\'t match</string>
     <string name="error_empty_field">Empty Field/s</string>
-    <string name="error_network">Request could not be executed due to a connectivity problem</string>
+    <string name="error_connectivity">Request could not be executed due to a connectivity problem</string>
     <string name="error_duplicate_entry">Duplicate Entry</string>
     <string name="error_unhandled">Unhandled exception</string>
     <string name="error_bad_request">Bad Request</string>

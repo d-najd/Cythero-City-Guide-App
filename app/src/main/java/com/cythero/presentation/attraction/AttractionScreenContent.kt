@@ -1,0 +1,37 @@
+package com.cythero.presentation.attraction
+
+import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.sp
+import com.cythero.cityguideapp.ui.attraction.AttractionScreenState
+
+@Composable
+fun AttractionScreenContent(
+	state: AttractionScreenState.Success,
+	onBackClicked: () -> Unit,
+) {
+	Scaffold { paddingValues ->
+		BackHandler { onBackClicked() }
+
+		Column(
+			modifier = Modifier
+				.padding(paddingValues = paddingValues)
+				.fillMaxSize(),
+			horizontalAlignment = CenterHorizontally,
+			verticalArrangement = Arrangement.Center,
+		) {
+			Text(
+				text = "Hello World",
+				fontSize = 34.sp,
+			)
+		}
+	}
+}

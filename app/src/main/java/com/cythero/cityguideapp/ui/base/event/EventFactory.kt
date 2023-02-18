@@ -12,7 +12,7 @@ object EventFactory {
 			500 -> BaseEvent.InternalServerError
 			501 -> BaseEvent.NotImplemented
 			502 -> BaseEvent.BadGateway
-			else -> BaseEvent.CustomMessage("Server Error code not handled $code")
+			else -> BaseEvent.CustomNetworkError("Server Error code not handled $code")
 		}
 	}
 }

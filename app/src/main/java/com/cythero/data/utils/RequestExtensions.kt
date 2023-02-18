@@ -19,7 +19,7 @@ inline fun <reified T> Call<T>.processRequest(): T? {
     } catch (e: Exception) {
         e.printStackTrace()
         when(e){
-            is IOException -> EventSendableHolder.get().sendEvent(BaseEvent.NetworkError)
+            is IOException -> EventSendableHolder.get().sendEvent(BaseEvent.ConnectivityError)
             else -> throw e
         }
     }
@@ -40,7 +40,7 @@ fun <T> Call<T>.processVoidRequest(): Boolean {
     } catch (e: Exception){
         e.printStackTrace()
         when(e){
-            is IOException -> EventSendableHolder.get().sendEvent(BaseEvent.NetworkError)
+            is IOException -> EventSendableHolder.get().sendEvent(BaseEvent.ConnectivityError)
             else -> throw e
         }
     }

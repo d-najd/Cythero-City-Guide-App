@@ -29,7 +29,6 @@ class LibraryScreenModel(
 			}
 
 			for(city in cities) {
-				// TODO make the crop correct
 				val requestOptions = RequestOptions.fitCenterTransform().centerCrop()
 				val drawable = getImageByUrl.subscribeOne(city.images[0].path, requestOptions)
 				val cityImages = city.images.toMutableList()

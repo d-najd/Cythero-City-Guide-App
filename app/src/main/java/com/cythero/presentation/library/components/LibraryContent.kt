@@ -1,6 +1,5 @@
 package com.cythero.presentation.library.components
 
-import android.widget.Space
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -63,7 +62,6 @@ fun LibraryContent(
 							alignment = Alignment.Center
 						)
 					}
-
 					Column(
 						modifier = Modifier.fillMaxSize()
 					) {
@@ -77,8 +75,10 @@ fun LibraryContent(
 
 @Composable
 private fun InsideContent(
-	city: City
+	city: City,
 ) {
+	// Color of the text and the rest of the stuff inside the column
+	val contentColor = Color.White
 	val themeColor = DestinationThemeFactory.getRandomColor()
 	Box(
 		modifier = Modifier
@@ -92,18 +92,20 @@ private fun InsideContent(
 			modifier = Modifier.height(paddingCentered)
 		) {
 			IconButton(
-				modifier = Modifier.size(paddingCentered),
+				modifier = Modifier
+					.padding(start = 4.dp)
+					.size(paddingCentered),
 				onClick = { /*TODO*/ }
 			) {
 				Icon(
 					// TODO for some reason the color does not want to be set
-					tint = contentColorFor(backgroundColor = contentColorFor(backgroundColor = themeColor)),
+					tint = contentColor,
 					imageVector = Icons.Default.Favorite,
 					contentDescription = ""
 				)
 			}
 			Text(
-				color = contentColorFor(backgroundColor = themeColor),
+				color = contentColor,
 				modifier = Modifier.padding(start = 2.dp),
 				text = "5.0K"
 			)
@@ -120,15 +122,15 @@ private fun InsideContent(
 				text = city.name.uppercase(),
 				fontFamily = FontFamily.SansSerif,
 				fontWeight = FontWeight.SemiBold,
-				color = contentColorFor(backgroundColor = themeColor),
+				color = contentColor,
 				letterSpacing = 4.sp,
 				fontSize = 25.sp,
 			)
 
 			Button(
 				colors = ButtonDefaults.buttonColors(
-					disabledBackgroundColor = themeColor.copy(.85f),
-					disabledContentColor = contentColorFor(backgroundColor = themeColor.copy(.85f))
+					disabledBackgroundColor = themeColor.copy(.9f),
+					disabledContentColor = contentColor,
 				),
 				shape = RoundedCornerShape(24.dp),
 				enabled = false,
