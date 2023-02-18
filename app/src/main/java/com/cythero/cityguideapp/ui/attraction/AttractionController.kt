@@ -6,7 +6,7 @@ import androidx.core.os.bundleOf
 import com.cythero.cityguideapp.ui.base.controller.ComposeController
 
 class AttractionController: ComposeController {
-	private constructor(attractionId: Long) : super(
+	constructor(attractionId: Long) : super(
 		bundleOf(
 			ATTRACTION_EXTRA to attractionId,
 		)

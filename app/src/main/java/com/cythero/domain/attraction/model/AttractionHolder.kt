@@ -24,7 +24,8 @@ data class AttractionHolder(
 				"            \"locationId\": 1,\n" +
 				"            \"location\": {\n" +
 				"                \"id\": 1,\n" +
-				"                \"flagPath\": \"https://picsum.photos/1080/720\"\n" +
+				"                \"flagPath\": \"https://picsum.photos/1080/720\",\n" +
+				"                \"address\": \"Macedonia - Bitola?\"\n" +
 				"            },\n" +
 				"            \"name\": \"Portal\"\n" +
 				"        },\n" +
@@ -34,7 +35,8 @@ data class AttractionHolder(
 				"            \"locationId\": 1,\n" +
 				"            \"location\": {\n" +
 				"                \"id\": 1,\n" +
-				"                \"flagPath\": \"https://picsum.photos/1080/720\"\n" +
+				"                \"flagPath\": \"https://picsum.photos/1080/720\",\n" +
+				"                \"address\": \"Macedonia - Bitola?\"\n" +
 				"            },\n" +
 				"            \"name\": \"Portal2\"\n" +
 				"        }\n" +

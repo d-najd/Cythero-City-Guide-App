@@ -22,6 +22,7 @@ import com.cythero.presentation.library.components.LibraryTopAppBar
 fun LibraryScreenContent(
     state: LibraryScreenState.Success,
     onSortMenuClicked: () -> Unit,
+    onAttractionClicked: (Long) -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -34,6 +35,7 @@ fun LibraryScreenContent(
         LibraryContent(
             state = state,
             contentPadding = contentPadding,
+            onAttractionClicked = onAttractionClicked,
         )
     }
 }

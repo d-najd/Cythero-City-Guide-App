@@ -16,4 +16,6 @@
     <string name="error_not_implemented">Not Implemented</string>
     <string name="bad_gateway">Bad Gateway</string>
     <string name="field_popular_destinations">Popular Destinations</string>
+    <string name="field_from">From</string>
+    <string name="field_for_week">For 7 nights</string>
 </resources>

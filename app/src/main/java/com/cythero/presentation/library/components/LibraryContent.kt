@@ -2,6 +2,7 @@ package com.cythero.presentation.library.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -29,6 +30,7 @@ import com.cythero.domain.city.model.City
 fun LibraryContent(
 	state: LibraryScreenState.Success,
 	contentPadding: PaddingValues,
+	onAttractionClicked: (Long) -> Unit,
 ) {
 	LazyColumn(
 		modifier = Modifier
@@ -37,7 +39,7 @@ fun LibraryContent(
 	) {
 		val cities = state.attractions.toMutableList()
 
-		items(cities) { city ->
+		items(cities) { attraction ->
 			Column(
 				modifier = Modifier
 					.fillMaxWidth()
@@ -52,10 +54,9 @@ fun LibraryContent(
 					.background(MaterialTheme.colors.onSurface)
 				)
 				Box {
-					val drawable = city.location.flagPathDrawable
-					drawable?.let {
+					attraction.location.flagPathDrawable?.let {
 						Image(
-							bitmap = drawable.toBitmap().asImageBitmap(),
+							bitmap = it.toBitmap().asImageBitmap(),
 							contentDescription = null,
 							modifier = Modifier
 								.fillMaxSize(),
@@ -64,9 +65,13 @@ fun LibraryContent(
 						)
 					}
 					Column(
-						modifier = Modifier.fillMaxSize()
+						modifier = Modifier
+							.fillMaxSize()
+							.clickable {
+								onAttractionClicked(attraction.id)
+							}
 					) {
-						InsideContent(attraction = city)
+						InsideContent(attraction = attraction)
 					}
 				}
 			}

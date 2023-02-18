@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
 import com.cythero.cityguideapp.ui.attraction.AttractionScreenState
+import com.cythero.presentation.attraction.components.AttractionContent
 
 @Composable
 fun AttractionScreenContent(
@@ -21,17 +22,9 @@ fun AttractionScreenContent(
 	Scaffold { paddingValues ->
 		BackHandler { onBackClicked() }
 
-		Column(
-			modifier = Modifier
-				.padding(paddingValues = paddingValues)
-				.fillMaxSize(),
-			horizontalAlignment = CenterHorizontally,
-			verticalArrangement = Arrangement.Center,
-		) {
-			Text(
-				text = "Hello World",
-				fontSize = 34.sp,
-			)
-		}
+		AttractionContent(
+			state = state,
+			paddingValues = paddingValues,
+		)
 	}
 }

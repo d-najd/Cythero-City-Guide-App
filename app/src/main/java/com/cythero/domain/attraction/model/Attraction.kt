@@ -21,15 +21,16 @@ data class Attraction(
         )
 
         private const val MOCK_STRING = "" +
-                "        {\n" +
-                "            \"id\": 4,\n" +
+                "{\n" +
+                "            \"id\": 2,\n" +
                 "            \"cityId\": 2,\n" +
                 "            \"locationId\": 1,\n" +
                 "            \"location\": {\n" +
                 "                \"id\": 1,\n" +
-                "                \"flagPath\": \"https://picsum.photos/1080/720\"\n" +
-                "            }," +
-                "            \"name\": \"Portal3\",\n" +
+                "                \"flagPath\": \"https://picsum.photos/1080/720\",\n" +
+                "                \"address\": \"Macedonia - Bitola?\"\n" +
+                "            },\n" +
+                "            \"name\": \"Portal2\"\n" +
                 "            \"description\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\"\n" +
                 "        }"
     }

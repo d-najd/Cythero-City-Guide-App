@@ -5,6 +5,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.navigator.currentOrThrow
+import com.bluelinelabs.conductor.asTransaction
+import com.cythero.cityguideapp.ui.attraction.AttractionController
 import com.cythero.cityguideapp.ui.base.screen.CityGuideScreen
 import com.cythero.presentation.components.LoadingScreen
 import com.cythero.presentation.library.LibraryScreenContent
@@ -15,6 +17,7 @@ class LibraryScreen : CityGuideScreen() {
 
 	@Composable
 	override fun Content() {
+		val router = LocalRouter.currentOrThrow
 		val screenModel = rememberScreenModel { LibraryScreenModel() }
 		// the screen model implements the interface
 		@Suppress("UNCHECKED_CAST")
@@ -29,7 +32,8 @@ class LibraryScreen : CityGuideScreen() {
 
 		LibraryScreenContent(
 			state = successState,
-			onSortMenuClicked = screenModel::invertSortMenu
+			onSortMenuClicked = screenModel::invertSortMenu,
+			onAttractionClicked = { router.pushController(AttractionController(it).asTransaction()) }
 		)
 	}
 }

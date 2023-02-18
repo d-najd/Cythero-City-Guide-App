@@ -7,5 +7,6 @@ import com.google.gson.annotations.SerializedName
 data class Location(
     @SerializedName("id") val id: Int,
     @SerializedName("flagPath") val flagPath: String,
+    @SerializedName("address") val address: String,
     @Transient val flagPathDrawable: Drawable? = null,
 )
