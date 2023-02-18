@@ -3,8 +3,8 @@ package com.cythero.cityguideapp.ui.library
 import androidx.compose.runtime.Immutable
 import cafe.adriel.voyager.core.model.coroutineScope
 import com.bumptech.glide.request.RequestOptions
-import com.cythero.domain.city.interactor.GetCity
-import com.cythero.domain.city.model.City
+import com.cythero.domain.attraction.interactor.GetAttraction
+import com.cythero.domain.attraction.model.Attraction
 import com.cythero.domain.image_url.interactor.GetImageByUrl
 import com.cythero.presentation.util.CityGuideStateScreenModel
 import com.cythero.util.launchIO
@@ -14,35 +14,34 @@ import uy.kohesive.injekt.Injekt
 import uy.kohesive.injekt.api.get
 
 class LibraryScreenModel(
-	private val getCity: GetCity = Injekt.get(),
+	private val getAttraction: GetAttraction = Injekt.get(),
 	private val getImageByUrl: GetImageByUrl = Injekt.get(),
 ) : CityGuideStateScreenModel<LibraryScreenState>(LibraryScreenState.Loading) {
 	private fun successState(): LibraryScreenState.Success = mutableState.value as LibraryScreenState.Success
 
 	init {
 		coroutineScope.launchIO {
-			val cities = getCity.awaitAll().toMutableList()
+			val attractions = getAttraction.awaitAll().toMutableList()
 			mutableState.update {
 				LibraryScreenState.Success(
-					cities = cities
+					attractions = attractions
 				)
 			}
 
-			for(city in cities) {
+			for(attraction in attractions) {
 				val requestOptions = RequestOptions.fitCenterTransform().centerCrop()
-				val drawable = getImageByUrl.subscribeOne(city.images[0].path, requestOptions)
-				val cityImages = city.images.toMutableList()
-				cityImages[0] = cityImages[0].copy(
-					drawable = drawable
-				)
-				cities[cities.indexOf(city)] = city.copy(
-					images = cityImages
-				)
-				mutableState.update {
-					successState().copy(
-						cities = cities,
+				val drawable = getImageByUrl.subscribeOne(attraction.location.flagPath, requestOptions)
+				val attractionWithFlag = attraction.copy(
+					location = attraction.location.copy(
+						flagPathDrawable = drawable
 					)
-				}
+				)
+				attractions[attractions.indexOf(attraction)] = attractionWithFlag
+			}
+			mutableState.update {
+				successState().copy(
+					attractions = attractions,
+				)
 			}
 		}
 	}
@@ -73,7 +72,8 @@ sealed class LibraryScreenState {
 
 	@Immutable
 	data class Success(
-		val cities: List<City>,
+		// TODO this is not supported to hold cities but rather locations.......
+		val attractions: List<Attraction>,
 		val sortMenuEnabled: Boolean = false,
 	): LibraryScreenState()
 

@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.sp
 import androidx.core.graphics.drawable.toBitmap
 import com.cythero.cityguideapp.theme.DestinationThemeFactory
 import com.cythero.cityguideapp.ui.library.LibraryScreenState
+import com.cythero.domain.attraction.model.Attraction
 import com.cythero.domain.city.model.City
 
 @Composable
@@ -34,7 +35,7 @@ fun LibraryContent(
 			.padding(contentPadding)
 			.fillMaxSize()
 	) {
-		val cities = state.cities.toMutableList()
+		val cities = state.attractions.toMutableList()
 
 		items(cities) { city ->
 			Column(
@@ -46,12 +47,12 @@ fun LibraryContent(
 				// TODO make the spacer `blurry` from the items above and below (combine their
 				//  colors instead of using onSurface color
 				Spacer(modifier = Modifier
-					.height(.5.dp)
+					.height(0.5.dp)
 					.fillMaxWidth()
 					.background(MaterialTheme.colors.onSurface)
 				)
 				Box {
-					val drawable = city.images[0].drawable
+					val drawable = city.location.flagPathDrawable
 					drawable?.let {
 						Image(
 							bitmap = drawable.toBitmap().asImageBitmap(),
@@ -65,7 +66,7 @@ fun LibraryContent(
 					Column(
 						modifier = Modifier.fillMaxSize()
 					) {
-						InsideContent(city = city)
+						InsideContent(attraction = city)
 					}
 				}
 			}
@@ -75,7 +76,7 @@ fun LibraryContent(
 
 @Composable
 private fun InsideContent(
-	city: City,
+	attraction: Attraction,
 ) {
 	// Color of the text and the rest of the stuff inside the column
 	val contentColor = Color.White
@@ -119,7 +120,7 @@ private fun InsideContent(
 			verticalArrangement = Arrangement.Center,
 		) {
 			Text(
-				text = city.name.uppercase(),
+				text = attraction.name.uppercase(),
 				fontFamily = FontFamily.SansSerif,
 				fontWeight = FontWeight.SemiBold,
 				color = contentColor,

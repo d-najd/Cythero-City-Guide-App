@@ -3,12 +3,16 @@ package com.cythero.domain
 import android.content.Context
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
+import com.cythero.data.attraction.FakeAttractionRepository
+import com.cythero.data.attraction.RemoteAttractionRepository
 import com.google.gson.GsonBuilder
 import com.cythero.data.utils.Urls
 import com.cythero.data.city.FakeCityRepository
 import com.cythero.data.city.RemoteCityRepository
 import com.cythero.data.image_url.FakeImageUrlRepository
 import com.cythero.data.image_url.RemoteImageUrlRepository
+import com.cythero.domain.attraction.interactor.GetAttraction
+import com.cythero.domain.attraction.service.AttractionRepository
 import com.cythero.domain.city.interactor.GetCity
 import com.cythero.domain.city.service.CityRepository
 import com.cythero.domain.image_url.interactor.GetImageByUrl
@@ -23,7 +27,7 @@ import uy.kohesive.injekt.api.*
 
 class DomainModule : InjektModule {
     companion object {
-        private const val USE_FAKES = true
+        private const val USE_FAKES = false
     }
     
     override fun InjektRegistrar.registerInjectables() {
@@ -62,18 +66,20 @@ class DomainModule : InjektModule {
         when (USE_FAKES) {
             true -> {
                 addSingletonFactory<CityRepository> { FakeCityRepository }
-
-                addFactory<ImageUrlRepository> { FakeImageUrlRepository }
+                addSingletonFactory<ImageUrlRepository>() { FakeImageUrlRepository }
+                addSingletonFactory<AttractionRepository> { FakeAttractionRepository }
             }
             false -> {
                 addSingletonFactory<CityRepository> { RemoteCityRepository }
-
-                addFactory<ImageUrlRepository> { RemoteImageUrlRepository }
+                addSingletonFactory<ImageUrlRepository>() { RemoteImageUrlRepository }
+                addSingletonFactory<AttractionRepository> { RemoteAttractionRepository }
             }
         }
 
         addFactory { GetCity(get()) }
 
         addFactory { GetImageByUrl(get()) }
+
+        addFactory { GetAttraction(get()) }
     }
 }

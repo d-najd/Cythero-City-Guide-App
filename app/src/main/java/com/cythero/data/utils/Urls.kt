@@ -23,7 +23,7 @@ sealed class Urls: UrlsGetFields {
     }
     @Suppress("MemberVisibilityCanBePrivate")
     object ATTRACTION: Urls() {
-        const val baseUrlLocal = "attractions-service/api"
+        const val baseUrlLocal = "tourist-attractions-service/api"
         const val appendedUrlLocal = "${API.baseUrlLocal}/$baseUrlLocal"
         override fun getBaseUrl(): String = baseUrlLocal
         override fun getAppendedUrl(): String = appendedUrlLocal

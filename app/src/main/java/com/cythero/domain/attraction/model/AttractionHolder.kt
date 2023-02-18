@@ -7,7 +7,7 @@ import uy.kohesive.injekt.Injekt
 import uy.kohesive.injekt.api.get
 
 data class AttractionHolder(
-	@SerializedName("data") val `data`: List<City> = emptyList()
+	@SerializedName("data") val `data`: List<Attraction> = emptyList()
 ) {
 	companion object {
 		fun mock(): AttractionHolder = Injekt.get<Gson>().fromJson(
@@ -22,20 +22,21 @@ data class AttractionHolder(
 				"            \"id\": 1,\n" +
 				"            \"cityId\": 2,\n" +
 				"            \"locationId\": 1,\n" +
+				"            \"location\": {\n" +
+				"                \"id\": 1,\n" +
+				"                \"flagPath\": \"https://picsum.photos/1080/720\"\n" +
+				"            },\n" +
 				"            \"name\": \"Portal\"\n" +
 				"        },\n" +
 				"        {\n" +
 				"            \"id\": 2,\n" +
 				"            \"cityId\": 2,\n" +
 				"            \"locationId\": 1,\n" +
+				"            \"location\": {\n" +
+				"                \"id\": 1,\n" +
+				"                \"flagPath\": \"https://picsum.photos/1080/720\"\n" +
+				"            },\n" +
 				"            \"name\": \"Portal2\"\n" +
-				"        },\n" +
-				"        {\n" +
-				"            \"id\": 4,\n" +
-				"            \"cityId\": 2,\n" +
-				"            \"locationId\": 1,\n" +
-				"            \"name\": \"Portal3\",\n" +
-				"            \"description\": \"Test\"\n" +
 				"        }\n" +
 				"    ]\n" +
 				"}"
