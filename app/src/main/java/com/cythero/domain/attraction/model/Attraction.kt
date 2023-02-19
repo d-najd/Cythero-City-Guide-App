@@ -13,7 +13,7 @@ data class Attraction(
     @SerializedName("location") val location: Location,
     @SerializedName("name") val name: String,
     @SerializedName("description") val description: String? = null,
-) {
+): java.io.Serializable { // TODO get rid of serializable
     companion object {
         fun mock(): Attraction = Injekt.get<Gson>().fromJson(
             MOCK_STRING,

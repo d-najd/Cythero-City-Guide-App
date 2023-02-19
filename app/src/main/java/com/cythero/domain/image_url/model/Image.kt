@@ -1,4 +1,4 @@
-package com.cythero.domain.city.model
+package com.cythero.domain.image_url.model
 
 
 import android.graphics.drawable.Drawable
@@ -13,4 +13,4 @@ data class Image(
     @SerializedName("path") val path: String,
     @SerializedName("cityId") val cityId: Int? = null,
     @Transient val drawable: Drawable? = null,
-)
+): java.io.Serializable // TODO get rid of serializable

@@ -9,4 +9,4 @@ data class Location(
     @SerializedName("flagPath") val flagPath: String,
     @SerializedName("address") val address: String,
     @Transient val flagPathDrawable: Drawable? = null,
-)
+): java.io.Serializable // TODO get rid of serializable

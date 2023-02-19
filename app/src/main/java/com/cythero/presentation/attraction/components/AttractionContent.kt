@@ -1,6 +1,8 @@
 package com.cythero.presentation.attraction.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -10,16 +12,18 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.drawable.toBitmap
-import androidx.compose.foundation.layout.*
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.LocationOn
+import androidx.compose.material.icons.sharp.LocationOn
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.cythero.cityguideapp.R
 import com.cythero.cityguideapp.ui.attraction.AttractionScreenState
+import com.cythero.domain.attraction.model.Attraction
+import com.cythero.presentation.components.CircularProgressBar
 import com.cythero.presentation.components.CityGuideIconPairField
 
 @Composable
@@ -31,16 +35,14 @@ fun AttractionContent(
 	Box(
 		modifier = Modifier.padding(paddingValues)
 	) {
-		attraction.location.flagPathDrawable?.let {
-			Image(
-				bitmap = it.toBitmap().asImageBitmap(),
-				contentDescription = null,
-				modifier = Modifier
-					.fillMaxSize(),
-				contentScale = ContentScale.Crop,
-				alignment = Alignment.Center
-			)
-		}
+		Image(
+			bitmap = attraction.location.flagPathDrawable!!.toBitmap().asImageBitmap(),
+			contentDescription = null,
+			modifier = Modifier
+				.fillMaxSize(),
+			contentScale = ContentScale.Crop,
+			alignment = Alignment.Center
+		)
 		ContentBehindImage(state)
 	}
 }
@@ -49,53 +51,134 @@ fun AttractionContent(
 private fun ContentBehindImage(
 	state: AttractionScreenState.Success,
 ) {
+	val contentColor = Color.White
 	val attraction = state.attraction
+
 	Column(
 		modifier = Modifier
+			.background(Color.Black.copy(.2f))
 			.fillMaxSize()
 			.padding(
-				horizontal = 12.dp,
-				vertical = 18.dp
+				horizontal = 24.dp,
+				vertical = 24.dp
 			),
 		verticalArrangement = Arrangement.Bottom,
 	) {
-		Row {
-			Text(
-				text = stringResource(R.string.field_from),
-				fontWeight = FontWeight.Light,
-			)
-			Text(
-				text = " $1,289 ",
-				fontWeight = FontWeight.Light,
-				color = MaterialTheme.colors.primary,
-			)
-			Text(
-				text = stringResource(R.string.field_for_week),
-				fontWeight = FontWeight.Light,
-			)
-		}
-		
-		Divider(
-			modifier = Modifier
-				.width(50.dp)
-				.padding(vertical = 12.dp),
-		)
-		
-		CityGuideIconPairField(
-			iconContent = {
-				Icon(
-					imageVector = Icons.Rounded.LocationOn,
-					contentDescription = null,
-				)
-			},
-			text = attraction.location.address,
+		TitleComposable(
+			title = attraction.name,
+			contentColor = contentColor
 		)
 
-		Text(
-			text = attraction.location.address,
-			fontWeight = FontWeight.SemiBold,
-			fontSize = 20.sp,
-			letterSpacing = 4.sp,
+		AddressComposable(
+			address = attraction.location.address,
+			contentColor = contentColor,
 		)
+
+		Divider(
+			thickness = .6.dp,
+			color = contentColor.copy(.5f),
+			modifier = Modifier
+				.width(75.dp)
+				.padding(bottom = 6.dp),
+		)
+
+		Row(
+			verticalAlignment = Alignment.CenterVertically,
+		) {
+			PricePerNightComposable(contentColor = contentColor)
+			RatingComposable(contentColor = contentColor)
+		}
+	}
+}
+
+@Composable
+private fun TitleComposable(
+	title: String,
+	contentColor: Color,
+) {
+	Text(
+		modifier = Modifier.padding(bottom = 12.dp),
+		color = contentColor,
+		text = title,
+		fontWeight = FontWeight.Bold,
+		fontSize = 52.sp,
+		letterSpacing = 5.sp,
+	)
+}
+
+@Composable
+private fun AddressComposable(
+	address: String,
+	contentColor: Color,
+) {
+	CityGuideIconPairField(
+		modifier = Modifier.padding(bottom = 26.dp),
+		iconContent = {
+			Icon(
+				tint = contentColor,
+				imageVector = Icons.Sharp.LocationOn,
+				contentDescription = null,
+			)
+		},
+		textContent = {
+			Text(
+				text = address,
+				fontWeight = FontWeight.ExtraLight,
+				color = contentColor,
+			)
+		}
+	)
+}
+
+@Composable
+private fun PricePerNightComposable(
+	contentColor: Color,
+) {
+	Row {
+		Text(
+			color = contentColor,
+			text = stringResource(R.string.field_from),
+			fontWeight = FontWeight.ExtraLight,
+		)
+		Text(
+			text = " $1,289 ",
+			fontWeight = FontWeight.ExtraLight,
+			color = MaterialTheme.colors.primary,
+		)
+		Text(
+			color = contentColor,
+			text = stringResource(R.string.field_for_week),
+			fontWeight = FontWeight.ExtraLight,
+		)
+	}
+}
+
+@Composable
+private fun RatingComposable(
+	contentColor: Color,
+){
+	Column(
+		modifier = Modifier.fillMaxWidth(),
+		verticalArrangement = Arrangement.Center,
+		horizontalAlignment = Alignment.End,
+	) {
+		Box(
+			modifier = Modifier.size(75.dp),
+			contentAlignment = Alignment.Center,
+		) {
+			val rating = 6.52f
+			CircularProgressBar(
+				startAngle = 180f,
+				sweepAngle = 360f,
+				strokeWidth = 4.dp,
+				modifier = Modifier.size(75.dp),
+				percentage = rating/10f,
+				endIndicatorEnabled = false,
+			)
+			Text(
+				text = rating.toString(),
+				color = contentColor,
+			)
+		}
 	}
 }
