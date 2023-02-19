@@ -94,7 +94,8 @@ private fun ContentBehindImage(
 			 *  250dp have been scrolled, since scrollState.value is not reliable something along the lines of the following
 			 *  formula should suffice
 			 *  { screenModel.maxValue - (composableHeight - (phoneScreenHeight + 250.dp)).toPercent() }
-			 * 
+			 *  NOTE the composable height and maxValue will change when the description will be expanded so beware of that
+			 *
 			 */
 			.height(LocalConfiguration.current.screenHeightDp.dp + 250.dp)
 			.padding(
