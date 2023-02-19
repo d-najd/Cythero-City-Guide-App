@@ -28,7 +28,9 @@ fun AttractionContent(
 	paddingValues: PaddingValues,
 ) {
 	val attraction = state.attraction
-	Box {
+	Box(
+		modifier = Modifier.padding(paddingValues)
+	) {
 		attraction.location.flagPathDrawable?.let {
 			Image(
 				bitmap = it.toBitmap().asImageBitmap(),

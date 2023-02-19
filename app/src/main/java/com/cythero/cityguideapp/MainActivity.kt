@@ -7,6 +7,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Router
 import com.cythero.cityguideapp.databinding.MainActivityBinding
+import com.cythero.cityguideapp.ui.attraction.AttractionController
 import com.cythero.cityguideapp.ui.base.controller.setRoot
 import com.cythero.cityguideapp.ui.library.LibraryController
 import com.cythero.domain.DomainModule
@@ -30,12 +31,8 @@ class MainActivity : AppCompatActivity() {
 			.setPopRootControllerMode(Router.PopRootControllerMode.NEVER)
 
 		if(router.backstack.firstOrNull() == null) {
-			router.setRoot(LibraryController())
-			// router.setRoot(ProjectTableController(projectFake))
-			// router.setRoot(TableTaskController(1L))
-			// router.setRoot(ProjectSettingsController(projectFake))
-			// router.setRoot(ProjectDetailsController(projectFake))
-			// router.setRoot(ProjectUserManagementController(1L))
+			// router.setRoot(LibraryController())
+			router.setRoot(AttractionController(1))
 		}
 	}
 }

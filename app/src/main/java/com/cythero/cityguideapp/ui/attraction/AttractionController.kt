@@ -3,6 +3,7 @@ package com.cythero.cityguideapp.ui.attraction
 import android.os.Bundle
 import androidx.compose.runtime.Composable
 import androidx.core.os.bundleOf
+import cafe.adriel.voyager.navigator.Navigator
 import com.cythero.cityguideapp.ui.base.controller.ComposeController
 
 class AttractionController: ComposeController {
@@ -22,7 +23,7 @@ class AttractionController: ComposeController {
 
 	@Composable
 	override fun ComposeContent() {
-		// Navigator(screen = ProjectTableScreen(project))
+		Navigator(screen = AttractionScreen(attractionId))
 	}
 
 	companion object {
