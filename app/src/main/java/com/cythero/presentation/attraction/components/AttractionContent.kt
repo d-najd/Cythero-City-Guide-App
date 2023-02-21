@@ -1,10 +1,11 @@
 package com.cythero.presentation.attraction.components
 
-import androidx.compose.animation.core.TweenSpec
 import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
-import androidx.compose.foundation.*
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,10 +23,7 @@ import androidx.compose.material.icons.sharp.LocationOn
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.cythero.cityguideapp.R
@@ -34,7 +32,6 @@ import com.cythero.domain.attraction.model.Attraction
 import com.cythero.presentation.components.CircularProgressBar
 import com.cythero.presentation.components.CityGuideIconPairField
 import com.cythero.presentation.util.valueInPercent
-import com.cythero.util.toast
 import kotlin.math.max
 
 @Composable
@@ -83,12 +80,11 @@ private fun ContentBehindImage(
 	)
 	Column(
 		modifier = Modifier
-			.alpha(animatedVisibility)
-			.background(Color.Black.copy(.2f))
 			.verticalScroll(
 				state = firstScreenScrollState,
 			)
-			.fillMaxWidth()
+			.fillMaxSize()
+		,
 			/**
 			 * TODO make this more flexible in other words get rid of the secondScreenScrollState and instead calculate if
 			 *  250dp have been scrolled, since scrollState.value is not reliable something along the lines of the following
@@ -97,41 +93,76 @@ private fun ContentBehindImage(
 			 *  NOTE the composable height and maxValue will change when the description will be expanded so beware of that
 			 *
 			 */
-			.height(LocalConfiguration.current.screenHeightDp.dp + 250.dp)
-			.padding(
-				start = 24.dp,
-				end = 24.dp,
-				bottom = 24.dp,
-			),
 		verticalArrangement = Arrangement.Bottom,
 	) {
-		Text(text = firstScreenScrollState.valueInPercent().toString() + " - " + secondScreenScrollState.valueInPercent().toString())
+		Text(
+			text = firstScreenScrollState.valueInPercent().toString() + " - " + secondScreenScrollState.valueInPercent()
+				.toString()
+		)
 		FirstScreen(
+			modifier = Modifier
+				//.background(Color.Black.copy(.5f))
+				.alpha(animatedVisibility)
+				.imePadding()
+				.height(LocalConfiguration.current.screenHeightDp.dp + 25.dp)
+				.padding(
+					bottom = 12.dp,
+					start = 24.dp,
+					end = 24.dp,
+				),
 			attraction = attraction,
 			contentColor = contentColor
 		)
-	}
-	Column(
-		modifier = Modifier
-			.alpha(1f - animatedVisibility)
-			.background(Color.Red.copy(.5f))
-			.fillMaxSize()
-			.padding(
-				horizontal = 24.dp,
+		Column(
+			modifier = Modifier
+				.alpha(1f - animatedVisibility)
+				.fillMaxSize()
+				// .background(Color.Red.copy(.5f))
+		) {
+			Text(
+				text = firstScreenScrollState.valueInPercent()
+					.toString() + " - " + secondScreenScrollState.valueInPercent()
+					.toString()
 			)
-	) {
-		Text(text = firstScreenScrollState.valueInPercent().toString() + " - " + secondScreenScrollState.valueInPercent().toString())
+			Image(
+				bitmap = attraction.location.flagPathDrawable!!.toBitmap().asImageBitmap(),
+				contentDescription = null,
+				modifier = Modifier
+					.height(300.dp)
+					.fillMaxWidth(),
+				contentScale = ContentScale.Crop,
+				alignment = Alignment.Center
+			)
+			Column(
+				modifier = Modifier
+					.background(MaterialTheme.colors.onSurface)
+					.fillMaxWidth()
+					.padding(
+						top = 12.dp,
+						start = 20.dp,
+						end = 20.dp
+					)
+			) {
+				Row {
+					TitleComposable(title = attraction.name)
+					RatingComposable(
+						modifier = Modifier.fillMaxWidth()
+					)
+				}
+			}
+		}
 	}
 }
 
 @Composable
 private fun FirstScreen(
+	modifier: Modifier = Modifier,
 	attraction: Attraction,
 	contentColor: Color,
 ) {
 	Column(
-		modifier = Modifier
-			.padding(bottom = 250.dp),
+		modifier = modifier,
+		verticalArrangement = Arrangement.Bottom,
 	) {
 		TitleComposable(
 			title = attraction.name,
@@ -150,12 +181,15 @@ private fun FirstScreen(
 				.width(75.dp)
 				.padding(bottom = 6.dp),
 		)
-
 		Row(
 			verticalAlignment = Alignment.CenterVertically,
 		) {
 			PricePerNightComposable(contentColor = contentColor)
-			RatingComposable(contentColor = contentColor)
+
+			RatingComposable(
+				modifier = Modifier.fillMaxWidth(),
+				contentColor = contentColor
+			)
 		}
 	}
 }
@@ -224,10 +258,11 @@ private fun PricePerNightComposable(
 
 @Composable
 private fun RatingComposable(
-	contentColor: Color,
+	modifier: Modifier = Modifier,
+	contentColor: Color = Color.Unspecified,
 ){
 	Column(
-		modifier = Modifier.fillMaxWidth(),
+		modifier = modifier,
 		verticalArrangement = Arrangement.Center,
 		horizontalAlignment = Alignment.End,
 	) {
