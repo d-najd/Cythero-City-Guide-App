@@ -31,8 +31,8 @@ class MainActivity : AppCompatActivity() {
 			.setPopRootControllerMode(Router.PopRootControllerMode.NEVER)
 
 		if(router.backstack.firstOrNull() == null) {
-			// router.setRoot(LibraryController())
-			router.setRoot(AttractionController(1))
+			router.setRoot(LibraryController())
+			// router.setRoot(AttractionController(1))
 		}
 	}
 }
