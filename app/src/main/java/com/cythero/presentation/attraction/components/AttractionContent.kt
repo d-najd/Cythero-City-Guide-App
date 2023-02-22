@@ -88,7 +88,6 @@ private fun ContentBehindImage(
 	FirstScreen(
 		modifier = Modifier
 			//.alpha(animatedVisibility)
-			.background(Color.Red.copy(.5f))
 			.fillMaxHeight()
 			.padding(
 				bottom = 12.dp,
@@ -108,8 +107,6 @@ private fun ContentBehindImage(
 			text = screenScrollState.valueInPercent().toString()
 		)
 		 */
-
-
 }
 
 
