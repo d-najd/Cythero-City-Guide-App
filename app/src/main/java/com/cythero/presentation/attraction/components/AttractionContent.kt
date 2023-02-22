@@ -97,6 +97,7 @@ private fun ContentBehindImage(
 		contentColor = contentColor
 	)
 
+	SecondScreen(attraction = attraction)
 	/*
 		Text(
 			text = screenScrollState.valueInPercent().toString()
@@ -121,7 +122,7 @@ private fun SecondScreen(
 	Column(
 		modifier = Modifier
 			.fillMaxWidth()
-			.heightIn(min = LocalConfiguration.current.screenHeightDp.dp + 50.dp)
+			// .heightIn(min = LocalConfiguration.current.screenHeightDp.dp)
 			.verticalScroll(screenScrollState)
 			.padding(top = LocalConfiguration.current.screenHeightDp.dp + 50.dp),
 		// .background(Color.Red.copy(.5f))
@@ -165,6 +166,9 @@ private fun SecondScreen(
 					text = attraction.description ?: stringResource(R.string.info_no_description_attraction),
 				)
 			}
+
+			Spacer(modifier = Modifier
+				.weight(1f, fill = false).fillMaxHeight())
 
 			Button(
 				modifier = Modifier
