@@ -18,4 +18,6 @@
     <string name="field_popular_destinations">Popular Destinations</string>
     <string name="field_from">From</string>
     <string name="field_for_week">For 7 nights</string>
+    <string name="info_no_description_attraction">There is no description for the selected attraction</string>
+    <string name="field_get_directions">Get Directions</string>
 </resources>

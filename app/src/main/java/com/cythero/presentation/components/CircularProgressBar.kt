@@ -3,7 +3,7 @@ package com.cythero.presentation.components
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.cythero.cityguideapp.theme.LightColors
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -26,8 +27,8 @@ fun CircularProgressBar(
 	startAngle: Float = 140f,
 	sweepAngle: Float = 260f,
 	percentage: Float,
-	fillColor: Color = MaterialTheme.colors.primary,
-	backgroundColor: Color = MaterialTheme.colors.background.copy(.7f),
+	fillColor: Color = LightColors.primary,
+	backgroundColor: Color = MaterialTheme.colorScheme.onBackground.copy(.7f),
 	strokeWidth: Dp = 10.dp,
 	endIndicatorColor: Color = Color.White,
 	endIndicatorRadius: Float = 5F,

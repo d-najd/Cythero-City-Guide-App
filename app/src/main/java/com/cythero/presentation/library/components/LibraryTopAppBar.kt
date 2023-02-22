@@ -5,9 +5,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Sort
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -63,7 +63,7 @@ private fun FiltersEnabled() {
 			Button(
 				modifier = Modifier.padding(horizontal = 4.dp),
 				// all elevations are multiplied by 2.5x
-				elevation = ButtonDefaults.elevation(
+				elevation = ButtonDefaults.buttonElevation(
 					defaultElevation = 6.dp,
 					pressedElevation = 24.dp,
 					hoveredElevation = 12.dp,

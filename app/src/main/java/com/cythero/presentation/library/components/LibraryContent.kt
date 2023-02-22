@@ -10,6 +10,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -51,7 +52,7 @@ fun LibraryContent(
 				Spacer(modifier = Modifier
 					.height(0.5.dp)
 					.fillMaxWidth()
-					.background(MaterialTheme.colors.onSurface)
+					.background(MaterialTheme.colorScheme.onSurface)
 				)
 				Box {
 					attraction.location.flagPathDrawable?.let {
@@ -135,7 +136,7 @@ private fun InsideContent(
 
 			Button(
 				colors = ButtonDefaults.buttonColors(
-					disabledBackgroundColor = themeColor.copy(.9f),
+					disabledContainerColor = themeColor.copy(.9f),
 					disabledContentColor = contentColor,
 				),
 				shape = RoundedCornerShape(24.dp),
