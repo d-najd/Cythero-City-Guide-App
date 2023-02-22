@@ -1,5 +1,8 @@
 package com.cythero.presentation.attraction.components
 
+import android.content.Context
+import android.content.res.Resources
+import android.view.WindowManager
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -7,8 +10,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
@@ -18,17 +21,19 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.sharp.LocationOn
 import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.sp
 import com.cythero.cityguideapp.R
 import com.cythero.cityguideapp.ui.attraction.AttractionScreenState
 import com.cythero.domain.attraction.model.Attraction
 import com.cythero.presentation.components.CircularProgressBar
 import com.cythero.presentation.components.CityGuideIconPairField
-import com.cythero.presentation.util.valueInPercent
-
 
 /**
  * TODO check if this screen works on other devices
@@ -40,7 +45,7 @@ fun AttractionContent(
 	paddingValues: PaddingValues,
 ) {
 	val attraction = state.attraction
-	Box(
+	BoxWithConstraints(
 		modifier = Modifier
 			.padding(paddingValues)
 	) {
@@ -54,6 +59,7 @@ fun AttractionContent(
 		)
 		ContentBehindImage(
 			state = state,
+			height = maxHeight,
 		)
 	}
 }
@@ -61,6 +67,7 @@ fun AttractionContent(
 @Composable
 private fun ContentBehindImage(
 	state: AttractionScreenState.Success,
+	height: Dp,
 ) {
 	val contentColor = Color.White
 	val attraction = state.attraction
@@ -87,7 +94,8 @@ private fun ContentBehindImage(
 	FirstScreen(
 		modifier = Modifier
 			//.alpha(animatedVisibility)
-			.height(LocalConfiguration.current.screenHeightDp.dp + 50.dp)
+			.background(Color.Red.copy(.5f))
+			.fillMaxHeight()
 			.padding(
 				bottom = 12.dp,
 				start = 24.dp,
@@ -97,7 +105,10 @@ private fun ContentBehindImage(
 		contentColor = contentColor
 	)
 
-	SecondScreen(attraction = attraction)
+	SecondScreen(
+		attraction = attraction,
+		height = height,
+	)
 	/*
 		Text(
 			text = screenScrollState.valueInPercent().toString()
@@ -106,6 +117,7 @@ private fun ContentBehindImage(
 
 
 }
+
 
 /**
  * TODO make this more flexible in other words get rid of the secondScreenScrollState and instead calculate if
@@ -117,71 +129,97 @@ private fun ContentBehindImage(
 @Composable
 private fun SecondScreen(
 	attraction: Attraction,
+	height: Dp,
 ) {
 	val screenScrollState = rememberScrollState()
+
 	Column(
 		modifier = Modifier
 			.fillMaxWidth()
-			// .heightIn(min = LocalConfiguration.current.screenHeightDp.dp)
 			.verticalScroll(screenScrollState)
-			.padding(top = LocalConfiguration.current.screenHeightDp.dp + 50.dp),
-		// .background(Color.Red.copy(.5f))
-		verticalArrangement = Arrangement.Bottom,
+			.heightIn(min = height)
+			.padding(top = height),
 	) {
-		Image(
-			bitmap = attraction.location.flagPathDrawable!!.toBitmap().asImageBitmap(),
-			contentDescription = null,
-			modifier = Modifier
-				.height(350.dp)
-				.fillMaxWidth(),
-			contentScale = ContentScale.Crop,
-			alignment = Alignment.Center
-		)
 		Column(
 			modifier = Modifier
-				.background(MaterialTheme.colorScheme.surface)
 				.fillMaxWidth()
-				.padding(
-					top = 12.dp,
-				)
+				.background(MaterialTheme.colorScheme.background),
 		) {
-			Column(
-				modifier = Modifier
-					.padding(horizontal = 20.dp),
-			) {
-				Row(
-					verticalAlignment = Alignment.CenterVertically,
-				) {
-					TitleComposable(title = attraction.name)
-					RatingComposable(
-						modifier = Modifier.fillMaxWidth(),
-					)
-				}
+			val localDensity = LocalDensity.current
 
-				AddressComposable(
-					address = attraction.location.address
-				)
-
-				Text(
-					text = attraction.description ?: stringResource(R.string.info_no_description_attraction),
-				)
+			// Create element height in dp state
+			var columnHeightDp by remember {
+				mutableStateOf(0.dp)
 			}
 
-			Spacer(modifier = Modifier
-				.weight(1f, fill = false).fillMaxHeight())
-
-			Button(
+			Column(
 				modifier = Modifier
-					.padding(top = 20.dp)
 					.fillMaxWidth()
-					.height(75.dp)
-					.background(MaterialTheme.colorScheme.primary),
-				onClick = { },
-				shape = RoundedCornerShape(0.dp),
+					.onGloballyPositioned { coordinates ->
+						// Set column height using the LayoutCoordinates
+						columnHeightDp = with(localDensity) { coordinates.size.height.toDp() }
+					}
+				,
 			) {
-				Text(
-					text = stringResource(R.string.field_get_directions),
+				Image(
+					bitmap = attraction.location.flagPathDrawable!!.toBitmap().asImageBitmap(),
+					contentDescription = null,
+					modifier = Modifier
+						.height(350.dp)
+						.fillMaxWidth(),
+					contentScale = ContentScale.Crop,
+					alignment = Alignment.Center
 				)
+				Column(
+					modifier = Modifier
+						.background(MaterialTheme.colorScheme.surface)
+						.fillMaxWidth()
+						.padding(
+							top = 12.dp,
+						)
+				) {
+					Column(
+						modifier = Modifier
+							.padding(horizontal = 20.dp),
+					) {
+						Row(
+							verticalAlignment = Alignment.CenterVertically,
+						) {
+							TitleComposable(title = attraction.name)
+							RatingComposable(
+								modifier = Modifier.fillMaxWidth(),
+							)
+						}
+
+						AddressComposable(
+							address = attraction.location.address
+						)
+
+						Text(
+							text = attraction.description ?: stringResource(R.string.info_no_description_attraction),
+						)
+					}
+				}
+			}
+
+			Column(
+				modifier = Modifier
+					.fillMaxWidth(),
+				verticalArrangement = Arrangement.Bottom
+			) {
+				Button(
+					modifier = Modifier
+						.padding(top = maxOf(height - columnHeightDp, 20.dp) - 75.dp)
+						.fillMaxWidth()
+						.height(75.dp)
+						.background(MaterialTheme.colorScheme.primary),
+					onClick = { },
+					shape = RoundedCornerShape(0.dp),
+				) {
+					Text(
+						text = stringResource(R.string.field_get_directions),
+					)
+				}
 			}
 		}
 	}
