@@ -1,5 +1,7 @@
 package com.cythero.presentation.attraction.components
 
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -30,11 +32,33 @@ fun AttractionScrollableContent(
 	attraction: Attraction,
 	height: Dp,
 ) {
-	val screenScrollState = rememberScrollState()
+	val scrollState = rememberScrollState()
+
+	LaunchedEffect(scrollState.isScrollInProgress) {
+		if(!scrollState.isScrollInProgress) {
+			if(scrollState.value >= scrollState.maxValue/2) {
+				scrollState.animateScrollTo(
+					value = scrollState.maxValue,
+					animationSpec = spring(
+						stiffness = Spring.StiffnessMediumLow
+					)
+				)
+			} else {
+				scrollState.animateScrollTo(
+					value = 0,
+					animationSpec = spring(
+						stiffness = Spring.StiffnessMediumLow
+					)
+				)
+			}
+		}
+	}
 	Column(
 		modifier = Modifier
 			.fillMaxWidth()
-			.verticalScroll(screenScrollState)
+			.verticalScroll(
+				state = scrollState,
+			)
 			.heightIn(min = height)
 			.padding(top = height),
 	) {
