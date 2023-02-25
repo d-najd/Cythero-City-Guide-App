@@ -42,11 +42,6 @@ fun AttractionScrollableContent(
 		var columnHeightDp by remember {
 			mutableStateOf(0.dp)
 		}
-		Box(
-			modifier = Modifier
-				.fillMaxSize()
-				.background(MaterialTheme.colorScheme.background)
-		)
 		Column(
 			modifier = Modifier
 				.fillMaxWidth()
