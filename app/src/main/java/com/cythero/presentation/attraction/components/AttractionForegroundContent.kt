@@ -1,12 +1,17 @@
 package com.cythero.presentation.attraction.components
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import androidx.core.graphics.drawable.toBitmap
 import com.cythero.domain.attraction.model.Attraction
 
 /**
@@ -14,12 +19,31 @@ import com.cythero.domain.attraction.model.Attraction
  */
 @Composable
 fun AttractionForegroundContent(
-	modifier: Modifier = Modifier,
 	attraction: Attraction,
-	contentColor: Color,
 ) {
+	Image(
+		bitmap = attraction.location.flagPathDrawable!!.toBitmap()
+			.asImageBitmap(),
+		contentDescription = null,
+		modifier = Modifier.fillMaxSize(),
+		contentScale = ContentScale.Crop,
+		alignment = Alignment.Center
+	)
+	val contentColor = Color.White
+	// background "filter", does not affect the text only the image
+	Box(
+		modifier = Modifier
+			.fillMaxSize()
+			.background(Color.Black.copy(.075f))
+	)
 	Column(
-		modifier = modifier,
+		modifier = Modifier
+			.fillMaxHeight()
+			.padding(
+				bottom = 26.dp,
+				start = 24.dp,
+				end = 24.dp,
+			),
 		verticalArrangement = Arrangement.Bottom,
 	) {
 		AttractionTitleComposable(

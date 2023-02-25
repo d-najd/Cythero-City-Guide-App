@@ -18,12 +18,13 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun LibraryLikesTabComposable(
+	modifier: Modifier = Modifier,
 	contentColor: Color,
 	paddingCentered: Dp,
 ) {
 	Row(
+		modifier = modifier,
 		verticalAlignment = Alignment.CenterVertically,
-		modifier = Modifier.height(paddingCentered)
 	) {
 		IconButton(
 			modifier = Modifier

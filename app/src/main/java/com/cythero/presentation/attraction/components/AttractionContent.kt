@@ -1,6 +1,7 @@
 package com.cythero.presentation.attraction.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,29 +25,9 @@ fun AttractionContent(
 	val attraction = state.attraction
 	BoxWithConstraints(
 		modifier = Modifier
-			.padding(paddingValues)
+			.padding(paddingValues),
 	) {
-		// The background
-		Image(
-			bitmap = attraction.location.flagPathDrawable!!.toBitmap().asImageBitmap(),
-			contentDescription = null,
-			modifier = Modifier
-				.fillMaxSize(),
-			contentScale = ContentScale.Crop,
-			alignment = Alignment.Center
-		)
-		val contentColor = Color.White
-		AttractionForegroundContent(
-			modifier = Modifier
-				.fillMaxHeight()
-				.padding(
-					bottom = 26.dp,
-					start = 24.dp,
-					end = 24.dp,
-				),
-			attraction = attraction,
-			contentColor = contentColor
-		)
+		AttractionForegroundContent(attraction = attraction)
 		AttractionScrollableContent(
 			attraction = attraction,
 			height = maxHeight,

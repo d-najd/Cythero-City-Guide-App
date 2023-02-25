@@ -1,5 +1,6 @@
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,6 +22,7 @@ fun LibraryForegroundContent(
 	) {
 		val paddingCentered = 36.dp
 		LibraryLikesTabComposable(
+			modifier = Modifier.height(paddingCentered),
 			contentColor = contentColor,
 			paddingCentered = paddingCentered,
 		)
