@@ -2,11 +2,8 @@ package com.cythero.presentation.attraction.components
 
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -29,10 +26,10 @@ import com.cythero.domain.attraction.model.Attraction
  */
 @Composable
 fun AttractionScrollableContent(
+	scrollState: ScrollState,
 	attraction: Attraction,
 	height: Dp,
 ) {
-	val scrollState = rememberScrollState()
 
 	LaunchedEffect(scrollState.isScrollInProgress) {
 		if(!scrollState.isScrollInProgress) {
