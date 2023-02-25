@@ -1,6 +1,6 @@
 package com.cythero.presentation.library.components
 
-import LibraryContainerContent
+import LibraryForegroundContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -44,7 +44,7 @@ fun LibraryContainer(
 				.clickable { onAttractionClicked(attraction.id) }
 				.background(themeColor.copy(.4f))
 		) {
-			LibraryContainerContent(
+			LibraryForegroundContent(
 				attraction = attraction,
 				themeColor = themeColor
 			)

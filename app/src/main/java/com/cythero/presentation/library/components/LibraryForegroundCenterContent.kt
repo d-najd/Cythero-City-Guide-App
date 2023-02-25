@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.sp
 import com.cythero.domain.attraction.model.Attraction
 
 @Composable
-fun LibraryContainerCenterContent(
+fun LibraryForegroundCenterContent(
 	attraction: Attraction,
 	themeColor: Color,
 	contentColor: Color,

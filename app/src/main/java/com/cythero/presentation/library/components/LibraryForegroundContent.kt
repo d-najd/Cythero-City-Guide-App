@@ -5,11 +5,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.cythero.domain.attraction.model.Attraction
-import com.cythero.presentation.library.components.LibraryContainerCenterContent
+import com.cythero.presentation.library.components.LibraryForegroundCenterContent
 import com.cythero.presentation.library.components.LibraryLikesTabComposable
 
 @Composable
-fun LibraryContainerContent(
+fun LibraryForegroundContent(
 	attraction: Attraction,
 	themeColor: Color,
 ) {
@@ -24,7 +24,7 @@ fun LibraryContainerContent(
 			contentColor = contentColor,
 			paddingCentered = paddingCentered,
 		)
-		LibraryContainerCenterContent(
+		LibraryForegroundCenterContent(
 			attraction = attraction,
 			themeColor = themeColor,
 			contentColor = contentColor,

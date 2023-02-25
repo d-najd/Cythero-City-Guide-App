@@ -18,7 +18,6 @@ abstract class CityGuideStateScreenModel<S> (initialState: S): StateScreenModel<
 			_events.send(baseEvent)
 		}
 	}
-
 }
 
 
