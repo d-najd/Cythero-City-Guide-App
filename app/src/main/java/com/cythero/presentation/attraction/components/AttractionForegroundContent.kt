@@ -27,6 +27,7 @@ fun AttractionForegroundContent(
 	scrollState: ScrollState,
 	attraction: Attraction,
 ) {
+	// TODO blur using library called cloudy should fix performance problems
 	val blurAmount by remember(scrollState.value){ mutableStateOf(minOf(scrollState.valueInPercent()/4 + 1, 25f).toInt()) }
 	val flagBitmap = attraction.location.flagPathDrawable!!.toBitmap()
 	Box(
