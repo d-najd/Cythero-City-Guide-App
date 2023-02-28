@@ -8,7 +8,7 @@ data class AttractionHolder(
 	@SerializedName("data") val `data`: List<Attraction> = emptyList()
 ) {
 	companion object {
-		fun mock(generateCount: Int = 10): AttractionHolder {
+		fun fake(generateCount: Int = 10): AttractionHolder {
 			val returnList = mutableListOf<Attraction>()
 			for(i in 1..generateCount) {
 				returnList.add(
@@ -16,7 +16,7 @@ data class AttractionHolder(
 						id = i.toLong(),
 						cityId = Random.nextLong(),
 						locationId = Random.nextLong(),
-						location = Location.mock(),
+						location = Location.fake(),
 						name = getFaker().company().name(),
 						description = getFaker().lorem().paragraph(Random.nextInt(1, 50)),
 					)

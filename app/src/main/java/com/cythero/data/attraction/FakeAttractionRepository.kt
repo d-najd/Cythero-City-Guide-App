@@ -7,8 +7,8 @@ import com.cythero.domain.attraction.service.AttractionRepository
 @Suppress("RedundantNullableReturnType")
 object FakeAttractionRepository : AttractionRepository {
 
-	override suspend fun getAll(): AttractionHolder? = AttractionHolder.mock()
+	override suspend fun getAll(): AttractionHolder? = AttractionHolder.fake()
 
-	override suspend fun getOne(id: Long): Attraction? = Attraction.mock()
+	override suspend fun getOne(id: Long): Attraction? = Attraction.fake()
 
 }

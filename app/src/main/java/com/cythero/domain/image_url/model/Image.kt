@@ -2,7 +2,6 @@ package com.cythero.domain.image_url.model
 
 
 import android.graphics.drawable.Drawable
-import androidx.compose.ui.graphics.ImageBitmap
 import com.google.gson.annotations.SerializedName
 import kotlin.random.Random
 
@@ -16,7 +15,7 @@ data class Image(
     @Transient val drawable: Drawable? = null,
 ) {
     companion object {
-        fun mock(): Image = Image(
+        fun fake(): Image = Image(
             id = Random.nextLong(),
             path = "https://picsum.photos/1080/720",
             cityId = Random.nextLong(),

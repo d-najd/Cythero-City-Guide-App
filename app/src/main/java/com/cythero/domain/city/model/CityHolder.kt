@@ -9,13 +9,13 @@ data class CityHolder(
 	@SerializedName("data") val `data`: List<City> = emptyList()
 ) {
 	companion object {
-		fun mock(generateCount: Int = 10): CityHolder {
+		fun fake(generateCount: Int = 10): CityHolder {
 			val returnList = mutableListOf<City>()
 			for(i in 1..generateCount) {
 				val mockImageCount = Random.nextInt(1, 10)
 				val imageList = mutableListOf<Image>()
 				for(b in 1..mockImageCount) {
-					imageList.add(Image.mock())
+					imageList.add(Image.fake())
 				}
 				returnList.add(
 					City(

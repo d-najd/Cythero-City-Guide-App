@@ -12,6 +12,6 @@ data class Attraction(
     @SerializedName("description") val description: String? = null,
 ) {
     companion object {
-        fun mock(): Attraction = AttractionHolder.mock(1).data[0]
+        fun fake(): Attraction = AttractionHolder.fake(1).data[0]
     }
 }

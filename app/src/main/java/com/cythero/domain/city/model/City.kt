@@ -1,8 +1,6 @@
 package com.cythero.domain.city.model
 
 
-import com.cythero.domain.attraction.model.Attraction
-import com.cythero.domain.attraction.model.AttractionHolder
 import com.cythero.domain.image_url.model.Image
 import com.google.gson.annotations.SerializedName
 
@@ -15,6 +13,6 @@ data class City(
     @SerializedName("images") val images: List<Image> = emptyList(),
 ) {
     companion object {
-        fun mock(): City = CityHolder.mock(1).data[0]
+        fun fake(): City = CityHolder.fake(1).data[0]
     }
 }

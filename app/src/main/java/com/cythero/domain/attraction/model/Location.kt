@@ -13,7 +13,7 @@ data class Location(
     @Transient val flagPathDrawable: Drawable? = null,
 ) {
     companion object {
-        fun mock(): Location = Location(
+        fun fake(): Location = Location(
             id = Random.nextLong(),
             flagPath = "https://picsum.photos/1080/720",
             address = getFaker().address().fullAddress(),
