@@ -21,7 +21,7 @@ class LibraryScreenModel(
 
 	init {
 		coroutineScope.launchIO {
-			val attractions = getAttraction.awaitAll().toMutableList()
+			val attractions = getAttraction.awaitMulti(page = 1).toMutableList()
 			mutableState.update {
 				LibraryScreenState.Success(
 					attractions = attractions

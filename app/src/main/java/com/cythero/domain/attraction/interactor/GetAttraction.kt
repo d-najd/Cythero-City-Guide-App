@@ -7,7 +7,10 @@ class GetAttraction(
 	private val repository: AttractionRepository,
 ) {
 
-	suspend fun awaitAll(): List<Attraction> = repository.getAll()?.data ?: emptyList()
+	suspend fun awaitMulti(page: Int, size: Int = 10): List<Attraction> = repository.getMulti(
+		page = page,
+		size = size,
+	)?.data ?: emptyList()
 
 	suspend fun awaitOne(id: Long): Attraction? = repository.getOne(id)
 

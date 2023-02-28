@@ -15,6 +15,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.cythero.cityguideapp.ui.library.LibraryScreenState
 import com.cythero.util.toast
+import kotlinx.coroutines.flow.asFlow
 
 @Composable
 fun LibraryContent(
@@ -30,7 +31,7 @@ fun LibraryContent(
 		state = lazyListState,
 	) {
 		val cities = state.attractions.toMutableList()
-		items(cities) { attraction ->
+		items(cities.asFlow().) { attraction ->
 			Column(
 				modifier = Modifier
 					.fillMaxWidth()
@@ -52,9 +53,11 @@ fun LibraryContent(
 			}
 		}
 
+		/*
 		item {
 			CircularProgressIndicator()
 		}
+		 */
 	}
 
 	val context = LocalContext.current
