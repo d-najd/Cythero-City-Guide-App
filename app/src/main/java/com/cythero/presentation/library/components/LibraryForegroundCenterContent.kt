@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -34,12 +35,16 @@ fun LibraryForegroundCenterContent(
 		verticalArrangement = Arrangement.Center,
 	) {
 		Text(
+			modifier = Modifier.padding(horizontal = 16.dp),
 			text = attraction.name.uppercase(),
 			fontFamily = FontFamily.SansSerif,
 			fontWeight = FontWeight.SemiBold,
 			color = contentColor,
-			letterSpacing = 3.75.sp,
-			fontSize = 28.sp,
+			letterSpacing = 3.25.sp,
+			textAlign = TextAlign.Center,
+			fontSize = 24.sp,
+			maxLines = 2,
+			lineHeight = 30.sp,
 		)
 		Button(
 			colors = ButtonDefaults.buttonColors(

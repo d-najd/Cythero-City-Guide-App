@@ -18,7 +18,7 @@ fun AttractionTitleComposable(
 		color = contentColor,
 		text = title,
 		fontWeight = FontWeight.Bold,
-		fontSize = 52.sp,
-		letterSpacing = 5.sp,
+		fontSize = 36.sp,
+		lineHeight = 36.sp,
 	)
 }

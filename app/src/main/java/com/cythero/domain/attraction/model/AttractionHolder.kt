@@ -18,7 +18,7 @@ data class AttractionHolder(
 						locationId = Random.nextLong(),
 						location = Location.mock(),
 						name = getFaker().company().name(),
-						description = getFaker().lorem().sentence(Random.nextInt(1, 5)),
+						description = getFaker().lorem().paragraph(Random.nextInt(1, 50)),
 					)
 				)
 			}
