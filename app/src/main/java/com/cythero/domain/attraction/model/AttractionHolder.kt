@@ -8,12 +8,12 @@ data class AttractionHolder(
 	@SerializedName("data") val `data`: List<Attraction> = emptyList()
 ) {
 	companion object {
-		fun fake(generateCount: Int = 10): AttractionHolder {
+		fun fake(generateCount: Long = 10): AttractionHolder {
 			val returnList = mutableListOf<Attraction>()
 			for(i in 1..generateCount) {
 				returnList.add(
 					Attraction(
-						id = i.toLong(),
+						id = i,
 						cityId = Random.nextLong(),
 						locationId = Random.nextLong(),
 						location = Location.fake(),

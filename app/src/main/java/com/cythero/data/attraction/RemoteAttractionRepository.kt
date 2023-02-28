@@ -5,7 +5,6 @@ import com.cythero.data.utils.processRequest
 import com.cythero.domain.attraction.model.Attraction
 import com.cythero.domain.attraction.model.AttractionHolder
 import com.cythero.domain.attraction.service.AttractionRepository
-import com.cythero.domain.city.model.CityHolder
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.http.GET
@@ -19,13 +18,12 @@ object RemoteAttractionRepository : AttractionRepository {
 		Injekt.get<Retrofit.Builder>()
 			.baseUrl("${Urls.ATTRACTION.getAppendedUrl()}/").build().create(AttractionRepositoryApi::class.java)
 
-	override suspend fun getMulti(page: Int, size: Int): AttractionHolder? = factory.getByPage(
+	override suspend fun getMulti(page: Long, size: Long): AttractionHolder? = factory.getByPage(
 		page = page,
 		size = size,
 	).processRequest()
 
 	override suspend fun getOne(id: Long): Attraction? = factory.getById(id).processRequest()
-
 }
 
 private interface AttractionRepositoryApi {
@@ -35,8 +33,8 @@ private interface AttractionRepositoryApi {
 
 	@GET("page/{page}")
 	fun getByPage(
-		@Path("page") page: Int,
-		@Query("pageSize") size: Int = 10,
+		@Path("page") page: Long,
+		@Query("pageSize") size: Long = 10,
 	): Call<AttractionHolder>
 
 	@GET("{id}")

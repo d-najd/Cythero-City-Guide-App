@@ -13,6 +13,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.paging.LoadState
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.items
 import com.cythero.cityguideapp.ui.library.LibraryScreenState
 import com.cythero.util.toast
 import kotlinx.coroutines.flow.asFlow
@@ -24,48 +27,44 @@ fun LibraryContent(
 	onAttractionClicked: (Long) -> Unit,
 ) {
 	val lazyListState = rememberLazyListState()
+	val attractionLazyPager = state.attractionPager.collectAsLazyPagingItems()
 	LazyColumn(
-		modifier = Modifier
-			.padding(contentPadding)
+		modifier = Modifier.padding(contentPadding)
 			.fillMaxSize(),
 		state = lazyListState,
 	) {
-		val cities = state.attractions.toMutableList()
-		items(cities.asFlow().) { attraction ->
-			Column(
-				modifier = Modifier
-					.fillMaxWidth()
-					.height(225.dp),
-				horizontalAlignment = Alignment.CenterHorizontally
-			) {
-				// TODO make the spacer `blurry` from the items above and below (combine their
-				//  colors instead of using onSurface color
-				Spacer(
-					modifier = Modifier
-						.height(0.5.dp)
-						.fillMaxWidth()
-						.background(MaterialTheme.colorScheme.onSurface)
-				)
-				LibraryContainer(
-					attraction = attraction,
-					onAttractionClicked = onAttractionClicked,
-				)
+		items(attractionLazyPager) { attraction ->
+			attraction?.let {
+				Column(
+					modifier = Modifier.fillMaxWidth()
+						.height(225.dp),
+					horizontalAlignment = Alignment.CenterHorizontally
+				) {                // TODO make the spacer `blurry` from the items above and below (combine their
+					//  colors instead of using onSurface color
+					Spacer(
+						modifier = Modifier.height(0.5.dp)
+							.fillMaxWidth()
+							.background(MaterialTheme.colorScheme.onSurface)
+					)
+					LibraryContainer(
+						attraction = attraction,
+						onAttractionClicked = onAttractionClicked,
+					)
+				}
 			}
 		}
+		when (attractionLazyPager.loadState.append) {
+			is LoadState.NotLoading -> Unit
+			LoadState.Loading -> {
+				item {					// LoadingItem()
 
-		/*
-		item {
-			CircularProgressIndicator()
-		}
-		 */
-	}
-
-	val context = LocalContext.current
-	SideEffect {
-		val itemCount = lazyListState.layoutInfo.totalItemsCount
-		val lastVisibleItemIndex = lazyListState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: 0
-		if(lastVisibleItemIndex >= itemCount - 2) {
-			context.toast("Loading more items")
+				}
+			}
+			is LoadState.Error -> {
+				item {					// ErrorItem(message = (usersData.loadState.append as LoadState.Error).error.message.toString())
+				}
+			}
 		}
 	}
 }
+

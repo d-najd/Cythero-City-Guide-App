@@ -5,7 +5,7 @@ import com.cythero.domain.attraction.model.AttractionHolder
 
 interface AttractionRepository {
 
-	suspend fun getMulti(page: Int, size: Int): AttractionHolder?
+	suspend fun getMulti(page: Long, size: Long): AttractionHolder?
 
 	suspend fun getOne(id: Long): Attraction?
 
