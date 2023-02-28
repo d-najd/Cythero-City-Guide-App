@@ -121,4 +121,5 @@ dependencies {
     implementation 'com.github.shenguojun:renderscript-intrinsics-replacement-toolkit:main-SNAPSHOT'
 
     implementation 'jp.wasabeef:blurry:4.0.1'
+    implementation 'com.github.javafaker:javafaker:1.0.2'
 }

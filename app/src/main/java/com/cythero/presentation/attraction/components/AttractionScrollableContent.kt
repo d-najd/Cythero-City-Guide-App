@@ -30,7 +30,6 @@ fun AttractionScrollableContent(
 	attraction: Attraction,
 	height: Dp,
 ) {
-
 	LaunchedEffect(scrollState.isScrollInProgress) {
 		if(!scrollState.isScrollInProgress) {
 			if(scrollState.value >= scrollState.maxValue/2) {

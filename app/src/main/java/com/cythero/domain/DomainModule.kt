@@ -18,6 +18,7 @@ import com.cythero.domain.city.service.CityRepository
 import com.cythero.domain.image_url.interactor.GetImageByUrl
 import com.cythero.domain.image_url.service.ImageUrlRepository
 import com.cythero.util.DateFormat
+import com.github.javafaker.Faker
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -61,6 +62,10 @@ class DomainModule : InjektModule {
         @Suppress("RemoveExplicitTypeArguments")
         addSingletonFactory<RequestManager> {
             Glide.with(Injekt.get<Context>().applicationContext)
+        }
+
+        addSingletonFactory {
+            Faker()
         }
 
         when (USE_FAKES) {
