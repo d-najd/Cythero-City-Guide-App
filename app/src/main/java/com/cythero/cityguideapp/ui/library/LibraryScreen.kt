@@ -12,7 +12,7 @@ import com.cythero.presentation.library.LibraryScreenContent
 import com.cythero.presentation.util.LocalRouter
 
 class LibraryScreen : CityGuideScreen<LibraryScreenModel>(
-	mainScreenModel = LibraryScreenModel()
+	mainScreenModel = LibraryScreenModel(),
 ) {
 	@Composable
 	override fun ContentExtended() {

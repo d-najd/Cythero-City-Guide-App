@@ -34,7 +34,7 @@ private interface AttractionRepositoryApi {
 	@GET("page/{page}")
 	fun getByPage(
 		@Path("page") page: Long,
-		@Query("pageSize") size: Long = 10,
+		@Query("pageSize") size: Long = 5,
 	): Call<AttractionHolder>
 
 	@GET("{id}")

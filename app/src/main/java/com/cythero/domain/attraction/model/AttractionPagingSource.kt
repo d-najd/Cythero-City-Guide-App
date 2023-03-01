@@ -1,14 +1,20 @@
 package com.cythero.domain.attraction.model
 
-import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.cythero.domain.attraction.interactor.GetAttraction
+import com.cythero.domain.util.CityGuidePagingSource
+import com.cythero.util.withIOContext
 import uy.kohesive.injekt.Injekt
 import uy.kohesive.injekt.api.get
 
 class AttractionPagingSource(
 	private val getAttraction: GetAttraction = Injekt.get(),
-): PagingSource<Long, Attraction>() {
+	override val onLoading: (Boolean) -> Unit,
+	override val onEndReached: (Boolean) -> Unit,
+): CityGuidePagingSource<Long, Attraction>(
+	onLoading = onLoading,
+	onEndReached = onEndReached
+) {
 	override fun getRefreshKey(state: PagingState<Long, Attraction>): Long? {
 		return state.anchorPosition?.let { anchorPosition ->
 			val anchorPage = state.closestPageToPosition(anchorPosition)
@@ -17,19 +23,22 @@ class AttractionPagingSource(
 	}
 
 	override suspend fun load(params: LoadParams<Long>): LoadResult<Long, Attraction> {
-		return try {
-			val nextPageNumber = params.key ?: 1
-			val attractionsHolder = getAttraction.awaitMulti(
-				nextPageNumber,
-				params.loadSize.toLong(), // TODO check if this is correct
-			)
-			LoadResult.Page(
-				data = attractionsHolder,
-				prevKey = null,
-				nextKey = if (attractionsHolder.isNotEmpty()) nextPageNumber + 1 else null
-			)
-		} catch (e: Exception) {
-			LoadResult.Error(e)
+		return withIOContext {
+			try {
+				onLoading(true)
+				val nextPageNumber = params.key ?: 0
+				val attractionsHolder = getAttraction.awaitMulti(nextPageNumber, params.loadSize.toLong())
+				onLoading(false)
+				if(attractionsHolder.isEmpty()) onEndReached(true)
+				LoadResult.Page(
+					data = attractionsHolder,
+					prevKey = null,
+					nextKey = if (attractionsHolder.isNotEmpty()) nextPageNumber + 1 else null
+				)
+			} catch (e: Exception) {
+				onLoading(false)
+				LoadResult.Error(e)
+			}
 		}
 	}
 }
