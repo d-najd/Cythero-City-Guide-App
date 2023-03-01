@@ -23,7 +23,6 @@ class AttractionScreenModel(
 		coroutineScope.launchIO {
 			val attraction = getAttraction.awaitOne(id)!!
 			val drawable = getImageByUrl.subscribeOne(attraction.location.flagPath)
-
 			mutableState.update {
 				AttractionScreenState.Success(
 					attraction = attraction.copy(

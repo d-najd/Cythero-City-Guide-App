@@ -4,21 +4,17 @@ import androidx.compose.runtime.Immutable
 import androidx.paging.*
 import cafe.adriel.voyager.core.model.coroutineScope
 import com.bumptech.glide.request.RequestOptions
-import com.cythero.domain.attraction.interactor.GetAttraction
 import com.cythero.domain.attraction.model.Attraction
 import com.cythero.domain.attraction.model.AttractionPagingSource
 import com.cythero.domain.image_url.interactor.GetImageByUrl
 import com.cythero.presentation.util.CityGuideStateScreenModel
 import com.cythero.util.launchIO
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import uy.kohesive.injekt.Injekt
 import uy.kohesive.injekt.api.get
 
 class LibraryScreenModel(
-	private val getAttraction: GetAttraction = Injekt.get(),
 	private val getImageByUrl: GetImageByUrl = Injekt.get(),
 ) : CityGuideStateScreenModel<LibraryScreenState>(LibraryScreenState.Loading) {
 	private fun successState(): LibraryScreenState.Success = mutableState.value as LibraryScreenState.Success
@@ -28,7 +24,7 @@ class LibraryScreenModel(
 				coroutineScope.launch {
 					mutableState.update {
 						successState().copy(
-							isLoading = loadState
+							isLoading = loadState,
 						)
 					}
 				}
@@ -41,7 +37,7 @@ class LibraryScreenModel(
 						)
 					}
 				}
-			}
+			},
 		)
 	}.flow.cachedIn(coroutineScope)
 
@@ -53,15 +49,16 @@ class LibraryScreenModel(
 				)
 			}
 			attractionPager.collectLatest { data ->
+				attractionPager.filter {  }.map {  }
 				data.filter { it.location.flagPathDrawable == null }.map { attraction ->
 					val requestOptions = RequestOptions.fitCenterTransform().centerCrop()
 					val drawable = getImageByUrl.subscribeOne(
 						attraction.location.flagPath,
-						requestOptions
+						requestOptions,
 					)
 					attraction.copy(
 						location = attraction.location.copy(
-							flagPathDrawable = drawable
+							flagPathDrawable = drawable,
 						)
 					)
 				}
