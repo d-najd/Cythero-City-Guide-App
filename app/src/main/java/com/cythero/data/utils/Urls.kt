@@ -8,9 +8,9 @@ package com.cythero.data.utils
 @Suppress("ClassName")
 sealed class Urls: UrlsGetFields {
     object API: Urls() {
-        const val baseUrlLocal = "http://192.168.0.179:8080"
+        const val baseUrlLocal = "http://192.168.1.150:8080"
         @Suppress("MemberVisibilityCanBePrivate")
-        const val appendedUrlLocal = "http://192.168.0.179:8080"
+        const val appendedUrlLocal = "http://192.168.1.150:8080"
         override fun getBaseUrl(): String = baseUrlLocal
         override fun getAppendedUrl(): String = appendedUrlLocal
     }

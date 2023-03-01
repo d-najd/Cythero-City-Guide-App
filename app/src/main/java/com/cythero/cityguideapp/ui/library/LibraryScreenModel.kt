@@ -9,11 +9,13 @@ import com.cythero.domain.attraction.model.AttractionPagingSource
 import com.cythero.domain.image_url.interactor.GetImageByUrl
 import com.cythero.presentation.util.CityGuideStateScreenModel
 import com.cythero.util.launchIO
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import uy.kohesive.injekt.Injekt
 import uy.kohesive.injekt.api.get
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class LibraryScreenModel(
 	private val getImageByUrl: GetImageByUrl = Injekt.get(),
 ) : CityGuideStateScreenModel<LibraryScreenState>(LibraryScreenState.Loading) {
@@ -48,9 +50,17 @@ class LibraryScreenModel(
 					attractionPager = attractionPager,
 				)
 			}
-			attractionPager.collectLatest { data ->
-				attractionPager.filter {  }.map {  }
-				data.filter { it.location.flagPathDrawable == null }.map { attraction ->
+			fetchImages()
+		}
+	}
+
+	/**
+	 * must be launched for io scope
+	 */
+	private suspend fun fetchImages() {
+		mutableState.update {
+			successState().copy(
+				attractionPager = attractionPager.mapLatest { data -> data.filter { it.location.flagPathDrawable == null  } .map { attraction ->
 					val requestOptions = RequestOptions.fitCenterTransform().centerCrop()
 					val drawable = getImageByUrl.subscribeOne(
 						attraction.location.flagPath,
@@ -61,8 +71,8 @@ class LibraryScreenModel(
 							flagPathDrawable = drawable,
 						)
 					)
-				}
-			}
+				}}
+			)
 		}
 	}
 
