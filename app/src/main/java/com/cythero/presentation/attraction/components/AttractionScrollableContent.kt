@@ -1,9 +1,16 @@
 package com.cythero.presentation.attraction.components
 
+import android.graphics.drawable.Drawable
 import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.*
+import androidx.compose.foundation.gestures.FlingBehavior
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -14,6 +21,7 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.times
 import androidx.core.graphics.drawable.toBitmap
 import com.cythero.domain.attraction.model.Attraction
 
@@ -29,6 +37,7 @@ fun AttractionScrollableContent(
 	scrollState: ScrollState,
 	attraction: Attraction,
 	height: Dp,
+	width: Dp,
 ) {
 	LaunchedEffect(scrollState.isScrollInProgress) {
 		if(!scrollState.isScrollInProgress) {
@@ -70,16 +79,47 @@ fun AttractionScrollableContent(
 					columnHeightDp = with(localDensity) { coordinates.size.height.toDp() }
 				},
 		) {
-			Image(
-				bitmap = attraction.location.flagPathDrawable!!.toBitmap()
-					.asImageBitmap(),
-				contentDescription = null,
+			val images = mutableListOf<Drawable>()
+			if(attraction.location.flagPathDrawable != null) {
+				images.add(attraction.location.flagPathDrawable)
+			}
+			attraction.images.mapNotNullTo(images) { it.pathDrawable }
+
+			val lazyListState = rememberLazyListState()
+			/* TODO fix this
+			val density = LocalDensity.current
+			LaunchedEffect(!lazyListState.isScrollInProgress) {
+				val firstVisibleDp = with(density) { lazyListState.firstVisibleItemScrollOffset.toDp() }
+				if(firstVisibleDp > lazyListState.firstVisibleItemIndex * width + width/2) {
+					if(lazyListState.firstVisibleItemIndex + 1 <= images.size) {
+						lazyListState.animateScrollToItem(lazyListState.firstVisibleItemIndex + 1)
+					}
+				} else if (firstVisibleDp < lazyListState.firstVisibleItemIndex * width + width/2) {
+					if(lazyListState.firstVisibleItemIndex - 1 >= 0) {
+						lazyListState.animateScrollToItem(lazyListState.firstVisibleItemIndex - 1)
+					}
+				}
+			}
+			 */
+
+			LazyRow(
 				modifier = Modifier
 					.height(350.dp)
-					.fillMaxWidth(),
-				contentScale = ContentScale.Crop,
-				alignment = Alignment.Center
-			)
+					.width(50000.dp),
+				state = lazyListState,
+			) {
+				items(images) { image ->
+					Image(
+						bitmap = image.toBitmap().asImageBitmap(),
+						contentDescription = null,
+						modifier = Modifier
+							.height(350.dp)
+							.width(width),
+						contentScale = ContentScale.Crop,
+						alignment = Alignment.Center
+					)
+				}
+			}
 			AttractionScrollableTopContent(attraction = attraction)
 		}
 		Spacer(

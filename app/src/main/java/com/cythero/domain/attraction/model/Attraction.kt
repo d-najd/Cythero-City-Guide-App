@@ -10,6 +10,7 @@ data class Attraction(
     @SerializedName("location") val location: Location,
     @SerializedName("name") val name: String,
     @SerializedName("description") val description: String? = null,
+    @SerializedName("images") val images: List<CityGuideImage> = emptyList()
 ) {
     companion object {
         fun fake(): Attraction = AttractionHolder.fake(1).data[0]

@@ -37,6 +37,7 @@ fun AttractionContent(
 			scrollState = scrollState,
 			attraction = attraction,
 			height = maxHeight,
+			width = maxWidth,
 		)
 	}
 }

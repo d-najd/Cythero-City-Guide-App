@@ -30,7 +30,7 @@ import uy.kohesive.injekt.api.*
 
 class DomainModule : InjektModule {
     companion object {
-        private const val USE_FAKES = false
+        private const val USE_FAKES = true
     }
     
     override fun InjektRegistrar.registerInjectables() {
@@ -76,8 +76,9 @@ class DomainModule : InjektModule {
             GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .requestId()
-                //.requestIdToken(AuthConfig.serverId)
-                //.requestServerAuthCode(AuthConfig.serverId)
+                .requestIdToken(AuthConfig.serverId)
+                .requestServerAuthCode(AuthConfig.serverId)
+                .build()
         }
 
         when (USE_FAKES) {
