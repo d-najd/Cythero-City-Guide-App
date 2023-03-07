@@ -9,6 +9,7 @@ import com.cythero.cityguideapp.ui.attraction.AttractionController
 import com.cythero.cityguideapp.ui.base.screen.CityGuideScreen
 import com.cythero.presentation.components.LoadingScreen
 import com.cythero.presentation.library.LibraryScreenContent
+import com.cythero.presentation.library.test.SignInScreen
 import com.cythero.presentation.util.LocalRouter
 
 class LibraryScreen : CityGuideScreen<LibraryScreenModel>(
@@ -25,10 +26,13 @@ class LibraryScreen : CityGuideScreen<LibraryScreenModel>(
 		}
 		val successState = state as LibraryScreenState.Success
 
+		SignInScreen()
+		/*
 		LibraryScreenContent(
 			state = successState,
 			onSortMenuClicked = mainScreenModel::invertSortMenu,
 			onAttractionClicked = { router.pushController(AttractionController(it).asTransaction()) }
 		)
+		 */
 	}
 }
