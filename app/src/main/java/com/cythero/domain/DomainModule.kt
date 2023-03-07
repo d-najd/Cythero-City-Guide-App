@@ -11,6 +11,7 @@ import com.cythero.data.city.FakeCityRepository
 import com.cythero.data.city.RemoteCityRepository
 import com.cythero.data.image_url.FakeImageUrlRepository
 import com.cythero.data.image_url.RemoteImageUrlRepository
+import com.cythero.data.utils.AuthConfig
 import com.cythero.domain.attraction.interactor.GetAttraction
 import com.cythero.domain.attraction.service.AttractionRepository
 import com.cythero.domain.city.interactor.GetCity
@@ -19,6 +20,7 @@ import com.cythero.domain.image_url.interactor.GetImageByUrl
 import com.cythero.domain.image_url.service.ImageUrlRepository
 import com.cythero.util.DateFormat
 import com.github.javafaker.Faker
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -66,6 +68,16 @@ class DomainModule : InjektModule {
 
         addSingletonFactory {
             Faker()
+        }
+
+        addSingletonFactory {  }
+
+        addSingletonFactory {
+            GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .requestId()
+                //.requestIdToken(AuthConfig.serverId)
+                //.requestServerAuthCode(AuthConfig.serverId)
         }
 
         when (USE_FAKES) {

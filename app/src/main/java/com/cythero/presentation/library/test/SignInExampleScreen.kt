@@ -1,6 +1,5 @@
 package com.cythero.presentation.library.test
 
-import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.util.Log
@@ -15,10 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.cythero.util.toast
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions.DEFAULT_SIGN_IN
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.common.api.Scope
 import com.google.android.gms.tasks.Task
 import uy.kohesive.injekt.Injekt
 import uy.kohesive.injekt.api.get
@@ -37,7 +33,7 @@ fun SignInScreen() {
 
 	Column {
 		SignInButton {
-			val googleSignInClient = GoogleSignIn.getClient(Injekt.get<Application>(), getGoogleSignInOptions())
+			val googleSignInClient = GoogleSignIn.getClient(Injekt.get<Application>(), Injekt.get())
 			val signInIntent = googleSignInClient.signInIntent
 			signInLauncher.launch(signInIntent)
 		}
@@ -69,29 +65,6 @@ private fun handleSignInResult(
 		throw e
 		context.toast(e.statusCode.toString())
 	}
-}
-
-private fun getGoogleSignInOptions(): GoogleSignInOptions {
-	/*
-	return GoogleSignInOptions.Builder(DEFAULT_SIGN_IN)
-		.requestEmail()
-		.requestProfile()
-		.requestScopes(
-			Scope("https://www.googleapis.com/auth/userinfo.email"),
-			Scope("https://www.googleapis.com/auth/userinfo.profile")
-		)
-		.build()
-
-	 */
-
-
-	return GoogleSignInOptions.Builder(DEFAULT_SIGN_IN)
-		.requestEmail()
-		//.requestServerAuthCode("142523564407-pvb1vijcg69adv14chnsuvqpkpmv7p1p.apps.googleusercontent.com")
-		.requestIdToken("142523564407-pvb1vijcg69adv14chnsuvqpkpmv7p1p.apps.googleusercontent.com")
-		.requestId()
-		.build()
-
 }
 
 @Preview(showBackground = true)
