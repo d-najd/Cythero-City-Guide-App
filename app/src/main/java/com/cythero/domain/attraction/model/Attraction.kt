@@ -1,6 +1,8 @@
 package com.cythero.domain.attraction.model
 
 
+import com.cythero.domain.attraction.model.related.CityGuideImage
+import com.cythero.domain.attraction.model.related.Location
 import com.google.gson.annotations.SerializedName
 
 data class Attraction(

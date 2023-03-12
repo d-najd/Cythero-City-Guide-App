@@ -15,21 +15,23 @@ class AttractionPagingSource(
 	onLoading = onLoading,
 	onEndReached = onEndReached
 ) {
-	override fun getRefreshKey(state: PagingState<Long, Attraction>): Long? {
-		return state.anchorPosition?.let { anchorPosition ->
+	override fun getRefreshKey(state: PagingState<Long, Attraction>): Long? =
+		state.anchorPosition?.let { anchorPosition ->
 			val anchorPage = state.closestPageToPosition(anchorPosition)
 			anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
 		}
-	}
 
-	override suspend fun load(params: LoadParams<Long>): LoadResult<Long, Attraction> {
-		return withIOContext {
+	override suspend fun load(params: LoadParams<Long>): LoadResult<Long, Attraction> =
+		withIOContext {
 			try {
 				onLoading(true)
 				val nextPageNumber = params.key ?: 0
-				val attractionsHolder = getAttraction.awaitMulti(nextPageNumber, params.loadSize.toLong())
+				val attractionsHolder = getAttraction.awaitMulti(
+					nextPageNumber,
+					params.loadSize.toLong()
+				)
 				onLoading(false)
-				if(attractionsHolder.isEmpty()) onEndReached(true)
+				if (attractionsHolder.isEmpty()) onEndReached(true)
 				LoadResult.Page(
 					data = attractionsHolder,
 					prevKey = null,
@@ -40,5 +42,4 @@ class AttractionPagingSource(
 				LoadResult.Error(e)
 			}
 		}
-	}
 }

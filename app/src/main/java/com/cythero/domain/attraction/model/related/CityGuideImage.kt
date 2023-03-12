@@ -1,4 +1,4 @@
-package com.cythero.domain.attraction.model
+package com.cythero.domain.attraction.model.related
 
 import android.graphics.drawable.Drawable
 import com.google.gson.annotations.SerializedName

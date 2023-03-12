@@ -8,12 +8,11 @@ import com.cythero.domain.image_url.interactor.GetImageByUrl
 import com.cythero.presentation.util.CityGuideStateScreenModel
 import com.cythero.util.launchIO
 import kotlinx.coroutines.flow.update
-import okhttp3.internal.wait
 import uy.kohesive.injekt.Injekt
 import uy.kohesive.injekt.api.get
 
 class AttractionScreenModel(
-	val id: Long,
+	private val id: Long,
 	private val getAttraction: GetAttraction = Injekt.get(),
 	private val getImageByUrl: GetImageByUrl = Injekt.get(),
 ): CityGuideStateScreenModel<AttractionScreenState>(AttractionScreenState.Loading) {

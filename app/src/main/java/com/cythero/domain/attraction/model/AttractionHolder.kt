@@ -1,9 +1,10 @@
 package com.cythero.domain.attraction.model
 
+import com.cythero.domain.attraction.model.related.CityGuideImage
+import com.cythero.domain.attraction.model.related.Location
 import com.cythero.getFaker
 import com.google.gson.annotations.SerializedName
 import kotlin.random.Random
-import kotlin.random.nextLong
 
 data class AttractionHolder(
 	@SerializedName("data") val `data`: List<Attraction> = emptyList()
