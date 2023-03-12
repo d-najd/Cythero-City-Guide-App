@@ -21,7 +21,7 @@ class ReviewScreenModel(
 	private val pager = Pager(
 		PagingConfig(
 			pageSize = 10,
-			prefetchDistance = 2,
+			prefetchDistance = 3,
 			initialLoadSize = 25,
 		)
 	) {
