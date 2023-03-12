@@ -14,16 +14,16 @@ import androidx.compose.ui.unit.dp
 import com.cythero.cityguideapp.R
 
 @Composable
-fun AttractionScrollableBottomContent() {
+fun AttractionScrollableBottomContent(
+	modifier: Modifier,
+) {
 	Column(
-		modifier = Modifier
-			.fillMaxSize(),
+		modifier = modifier,
 		verticalArrangement = Arrangement.Bottom
 	) {
 		Button(
 			modifier = Modifier
-				.fillMaxWidth()
-				.height(75.dp)
+				.fillMaxSize()
 				.background(MaterialTheme.colorScheme.primary),
 			onClick = { },
 			shape = RoundedCornerShape(0.dp),

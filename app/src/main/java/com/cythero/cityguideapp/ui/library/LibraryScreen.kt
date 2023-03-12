@@ -26,14 +26,12 @@ class LibraryScreen : CityGuideScreen<LibraryScreenModel>(
 		}
 		val successState = state as LibraryScreenState.Success
 
-		SignInScreen()
+		// SignInScreen()
 
-		/*
 		LibraryScreenContent(
 			state = successState,
 			onSortMenuClicked = mainScreenModel::invertSortMenu,
 			onAttractionClicked = { router.pushController(AttractionController(it).asTransaction()) }
 		)
-		 */
 	}
 }
