@@ -36,17 +36,14 @@ fun AttractionScrollableTopContent(
 				)
 			}
 		}
-
 		AttractionAddressComposable(
 			modifier = Modifier.padding(bottom = 26.dp),
 			address = attraction.location.address
 		)
-
 		Text(
 			text = attraction.description
 				?: stringResource(R.string.info_no_description_attraction),
 		)
-
-		Spacer(modifier = Modifier.height(200.dp))
+		Spacer(modifier = Modifier.height(spacerHeight))
 	}
 }
