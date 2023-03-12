@@ -74,8 +74,6 @@ class DomainModule : InjektModule {
             Faker()
         }
 
-        addSingletonFactory {  }
-
         addSingletonFactory {
             GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
