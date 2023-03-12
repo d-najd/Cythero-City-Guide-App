@@ -16,7 +16,7 @@ data class ReviewHolder(
 						id = i,
 						attractionId = i,
 						stars = Random.nextInt(),
-						title = getFaker().lorem().sentence(Random.nextInt(0,3)),
+						title = getFaker().lorem().sentence(Random.nextInt(1,3)),
 						description = if(Random.nextBoolean()) getFaker().lorem().paragraph(
 							Random.nextInt(5, 50)
 						) else null,
