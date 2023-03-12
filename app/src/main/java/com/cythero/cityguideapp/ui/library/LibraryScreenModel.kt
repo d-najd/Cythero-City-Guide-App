@@ -20,7 +20,13 @@ class LibraryScreenModel(
 	private val getImageByUrl: GetImageByUrl = Injekt.get(),
 ) : CityGuideStateScreenModel<LibraryScreenState>(LibraryScreenState.Loading) {
 	private fun successState(): LibraryScreenState.Success = mutableState.value as LibraryScreenState.Success
-	private val attractionPager = Pager(PagingConfig(pageSize = 5, prefetchDistance = 2, initialLoadSize = 6)) {
+	private val attractionPager = Pager(
+		PagingConfig(
+			pageSize = 5,
+			prefetchDistance = 2,
+			initialLoadSize = 6
+		)
+	) {
 		AttractionPagingSource(
 			onLoading = { loadState ->
 				coroutineScope.launch {

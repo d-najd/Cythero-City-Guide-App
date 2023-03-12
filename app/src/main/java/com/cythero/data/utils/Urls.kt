@@ -28,6 +28,14 @@ sealed class Urls: UrlsGetFields {
         override fun getBaseUrl(): String = baseUrlLocal
         override fun getAppendedUrl(): String = appendedUrlLocal
     }
+    @Suppress("MemberVisibilityCanBePrivate")
+    object REVIEW: Urls() {
+        const val baseUrlLocal = "review-service/api"
+        const val appendedUrlLocal = "${API.baseUrlLocal}/$baseUrlLocal"
+        override fun getBaseUrl(): String = baseUrlLocal
+        override fun getAppendedUrl(): String = appendedUrlLocal
+    }
+
 }
 
 interface UrlsGetFields {

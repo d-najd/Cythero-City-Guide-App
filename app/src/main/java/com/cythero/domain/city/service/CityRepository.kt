@@ -4,9 +4,7 @@ import com.cythero.domain.city.model.CityHolder
 
 interface CityRepository {
 
-	/**
-	 * TODO get cities in parts instead of the whole db
-	 */
+	@Deprecated("replace with pager")
 	suspend fun getAll(): CityHolder?
 
 }

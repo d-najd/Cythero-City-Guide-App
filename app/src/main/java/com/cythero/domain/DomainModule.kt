@@ -11,6 +11,8 @@ import com.cythero.data.city.FakeCityRepository
 import com.cythero.data.city.RemoteCityRepository
 import com.cythero.data.image_url.FakeImageUrlRepository
 import com.cythero.data.image_url.RemoteImageUrlRepository
+import com.cythero.data.review.FakeReviewRepository
+import com.cythero.data.review.RemoteReviewRepository
 import com.cythero.data.utils.AuthConfig
 import com.cythero.domain.attraction.interactor.GetAttraction
 import com.cythero.domain.attraction.service.AttractionRepository
@@ -18,6 +20,8 @@ import com.cythero.domain.city.interactor.GetCity
 import com.cythero.domain.city.service.CityRepository
 import com.cythero.domain.image_url.interactor.GetImageByUrl
 import com.cythero.domain.image_url.service.ImageUrlRepository
+import com.cythero.domain.review.interactor.GetReview
+import com.cythero.domain.review.service.ReviewRepository
 import com.cythero.util.DateFormat
 import com.github.javafaker.Faker
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -84,13 +88,15 @@ class DomainModule : InjektModule {
         when (USE_FAKES) {
             true -> {
                 addSingletonFactory<CityRepository> { FakeCityRepository }
-                addSingletonFactory<ImageUrlRepository>() { FakeImageUrlRepository }
+                addSingletonFactory<ImageUrlRepository> { FakeImageUrlRepository }
                 addSingletonFactory<AttractionRepository> { FakeAttractionRepository }
+                addSingletonFactory<ReviewRepository> { FakeReviewRepository }
             }
             false -> {
                 addSingletonFactory<CityRepository> { RemoteCityRepository }
-                addSingletonFactory<ImageUrlRepository>() { RemoteImageUrlRepository }
+                addSingletonFactory<ImageUrlRepository> { RemoteImageUrlRepository }
                 addSingletonFactory<AttractionRepository> { RemoteAttractionRepository }
+                addSingletonFactory<ReviewRepository> { RemoteReviewRepository }
             }
         }
 
@@ -99,5 +105,7 @@ class DomainModule : InjektModule {
         addFactory { GetImageByUrl(get()) }
 
         addFactory { GetAttraction(get()) }
+
+        addFactory { GetReview(get()) }
     }
 }

@@ -13,7 +13,8 @@ import uy.kohesive.injekt.api.get
 object RemoteCityRepository : CityRepository {
     private val factory: ProjectTableRepositoryApi =
         Injekt.get<Retrofit.Builder>()
-            .baseUrl("${Urls.CITY.getAppendedUrl()}/").build().create(ProjectTableRepositoryApi::class.java)
+            .baseUrl("${Urls.CITY.getAppendedUrl()}/").build()
+            .create(ProjectTableRepositoryApi::class.java)
 
     override suspend fun getAll(): CityHolder? = factory.getAll().processRequest()
 }
